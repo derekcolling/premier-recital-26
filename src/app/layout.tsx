@@ -1,18 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: "ELEV8 Recital Tracker - Premier Dance",
   description: "Track recital routines, rehearsals, rooms, and show order for Premier Dance families.",
-  manifest: "/manifest.webmanifest",
+  manifest: `${basePath}/manifest.webmanifest`,
   appleWebApp: {
     capable: true,
     statusBarStyle: "black",
     title: "ELEV8 Recital",
   },
   icons: {
-    icon: "/icons/icon-192.png",
-    apple: "/icons/icon-192.png",
+    icon: `${basePath}/icons/icon-192.png`,
+    apple: `${basePath}/icons/icon-192.png`,
   },
 };
 

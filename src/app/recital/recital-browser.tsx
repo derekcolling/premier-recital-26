@@ -2,17 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useEffect, useMemo, useState } from "react";
-import { ArrowUp, CalendarDays, Check, Info, ListOrdered, MapPin, Plus, Search } from "lucide-react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowUp, CalendarDays, CalendarRange, Check, Info, ListOrdered, MapPin, Plus, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import type { RecitalShow } from "@/lib/recital";
 import type { RecitalScheduleData, RecitalScheduleEvent } from "@/lib/recital-schedule";
 
 type StoredSelections = Record<string, number[]>;
-type BrowserMode = "show-order" | "schedule" | "location";
+type BrowserMode = "show-order" | "schedule" | "full-rehearsal" | "location";
 
 const TRACKER_STORAGE_KEY = "premier-recital-tracker-v1";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const TEAMUP_SCHEDULE_DATES = new Set(["2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29"]);
 
 const SHOW_META: Record<number, { day: string; time: string; label: string }> = {
   1: { day: "Saturday", time: "Noon", label: "Saturday noon" },
@@ -43,6 +44,8 @@ function storageKey(showNumber: number) {
 function normalizeTitle(value: string) {
   return value
     .toLowerCase()
+    .replace(/contemporary/g, "contemp")
+    .replace(/\bmt\b/g, "musical theater")
     .replace(/tuesday/g, "t")
     .replace(/thursday/g, "th")
     .replace(/wednesday/g, "w")
@@ -55,6 +58,144 @@ function normalizeTitle(value: string) {
 function getRehearsalTitleCore(value: string) {
   const [titleBeforeTeacher] = value.split(/\s*-\s*/);
   return normalizeTitle(titleBeforeTeacher ?? value);
+}
+
+const ROUTINE_MATCH_STOP_WORDS = new Set([
+  "and",
+  "class",
+  "costume",
+  "bring",
+  "show",
+  "the",
+  "to",
+  "with",
+]);
+
+const WEEKDAY_TOKENS = new Set(["m", "t", "w", "th"]);
+const STYLE_MATCH_TOKENS = new Set([
+  "ballet",
+  "combo",
+  "contemp",
+  "dance",
+  "dude",
+  "dudes",
+  "finale",
+  "hip",
+  "hop",
+  "movement",
+  "musical",
+  "rhinestones",
+  "tap",
+  "team",
+  "tendu",
+  "theater",
+]);
+const LEVEL_MATCH_TOKENS = new Set([
+  "aqua",
+  "college",
+  "diamond",
+  "elementary",
+  "gold",
+  "onyx",
+  "opal",
+  "pearl",
+  "platinum",
+  "rhinestones",
+  "sapphire",
+  "silver",
+  "tiny",
+  "topaz",
+]);
+
+function getMatchTokens(value: string) {
+  return normalizeTitle(value)
+    .split(" ")
+    .filter((token) => token.length > 0 && !ROUTINE_MATCH_STOP_WORDS.has(token));
+}
+
+function getCoreMatchTokens(value: string) {
+  return getMatchTokens(value).filter((token) => !WEEKDAY_TOKENS.has(token));
+}
+
+function getTokenSet(value: string, candidates: Set<string>) {
+  return new Set(getMatchTokens(value).filter((token) => candidates.has(token)));
+}
+
+function countMatchingTokens(source: string[], candidates: Set<string>) {
+  return [...new Set(source)].reduce((total, token) => total + (candidates.has(token) ? 1 : 0), 0);
+}
+
+function setsAreEqual(left: Set<string>, right: Set<string>) {
+  if (left.size !== right.size) return false;
+
+  for (const item of left) {
+    if (!right.has(item)) return false;
+  }
+
+  return true;
+}
+
+function setsIntersect(left: Set<string>, right: Set<string>) {
+  for (const item of left) {
+    if (right.has(item)) return true;
+  }
+
+  return false;
+}
+
+function titlesAreKnownAliases(left: string, right: string) {
+  const pair = [left, right].sort().join("|");
+
+  return pair === "dance party bow|show 1 finale";
+}
+
+function routineTitleMatchesEvent(eventTitle: string, trackedTitle: string) {
+  if (eventTitle === trackedTitle) return true;
+  if (titlesAreKnownAliases(eventTitle, trackedTitle)) return true;
+
+  const trackedCoreTokens = getCoreMatchTokens(trackedTitle);
+  const eventCoreTokens = getCoreMatchTokens(eventTitle);
+
+  if (trackedCoreTokens.length < 2 || eventCoreTokens.length < 2) return false;
+
+  const trackedLevels = getTokenSet(trackedTitle, LEVEL_MATCH_TOKENS);
+  const eventLevels = getTokenSet(eventTitle, LEVEL_MATCH_TOKENS);
+
+  if (trackedLevels.size > 0 && eventLevels.size > 0 && !setsAreEqual(trackedLevels, eventLevels)) {
+    return false;
+  }
+
+  const trackedWeekdays = getTokenSet(trackedTitle, WEEKDAY_TOKENS);
+  const eventWeekdays = getTokenSet(eventTitle, WEEKDAY_TOKENS);
+
+  if (trackedWeekdays.size > 0 && eventWeekdays.size > 0 && !setsIntersect(trackedWeekdays, eventWeekdays)) {
+    return false;
+  }
+
+  const trackedSet = new Set(trackedCoreTokens);
+  const eventSet = new Set(eventCoreTokens);
+  const trackedStyles = getTokenSet(trackedTitle, STYLE_MATCH_TOKENS);
+  const eventStyles = getTokenSet(eventTitle, STYLE_MATCH_TOKENS);
+
+  if (trackedStyles.size > 0 && eventStyles.size > 0 && !setsIntersect(trackedStyles, eventStyles)) {
+    return false;
+  }
+
+  if (eventTitle.length > 2 && trackedTitle.length > 2) {
+    if (eventTitle.includes(trackedTitle) || trackedTitle.includes(eventTitle)) return true;
+  }
+
+  const matchingCoreTokenCount = countMatchingTokens(trackedCoreTokens, eventSet);
+  const matchedEnoughOfTrackedTitle =
+    matchingCoreTokenCount >= Math.min(trackedSet.size, 3) ||
+    matchingCoreTokenCount / trackedSet.size >= 0.75;
+  const matchedEnoughOfEventTitle =
+    matchingCoreTokenCount >= Math.min(eventSet.size, 3) ||
+    matchingCoreTokenCount / eventSet.size >= 0.75;
+
+  if (!matchedEnoughOfTrackedTitle && !matchedEnoughOfEventTitle) return false;
+
+  return true;
 }
 
 const SUBCALENDAR_LOCATION_LABELS: Record<number, string> = {
@@ -74,7 +215,7 @@ function eventMatchesTrackedRoutine(event: RecitalScheduleEvent, trackedTitles: 
   return trackedTitles.some((trackedTitle) => {
     if (trackedTitle.length <= 2) return false;
 
-    return eventTitle === trackedTitle;
+    return routineTitleMatchesEvent(eventTitle, trackedTitle);
   });
 }
 
@@ -118,6 +259,8 @@ export function RecitalBrowser({
   const [query, setQuery] = useState("");
   const [mode, setMode] = useState<BrowserMode>("show-order");
   const [selectedByShow, setSelectedByShow] = useState<StoredSelections>({});
+  const [headerHeight, setHeaderHeight] = useState(73);
+  const headerRef = useRef<HTMLElement | null>(null);
 
   const currentShow = shows.find((show) => show.showNumber === selectedShow) ?? shows[0];
   const showKey = currentShow ? storageKey(currentShow.showNumber) : "";
@@ -134,6 +277,26 @@ export function RecitalBrowser({
     }, 0);
 
     return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const headerElement = headerRef.current!;
+    if (!headerElement) return;
+
+    function updateHeaderHeight() {
+      setHeaderHeight(Math.ceil(headerElement.getBoundingClientRect().height));
+    }
+
+    updateHeaderHeight();
+
+    const resizeObserver = new ResizeObserver(updateHeaderHeight);
+    resizeObserver.observe(headerElement);
+    window.addEventListener("resize", updateHeaderHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateHeaderHeight);
+    };
   }, []);
 
 
@@ -201,10 +364,29 @@ export function RecitalBrowser({
       .filter((day) => day.events.length > 0);
   }, [normalizedQuery, schedule.days, trackedRoutineTitles, trackedShowNumbers]);
 
+  const fullRehearsalScheduleDays = useMemo(() => {
+    return schedule.days
+      .filter((day) => TEAMUP_SCHEDULE_DATES.has(day.date))
+      .map((day) => ({
+        ...day,
+        events: day.events.filter((event) => {
+          const searchable = [event.title, event.displayDate, event.time, event.location, event.who, event.notes]
+            .join(" ")
+            .toLowerCase();
+          const matchesSearch = !normalizedQuery || searchable.includes(normalizedQuery);
+
+          return matchesSearch;
+        }),
+      }))
+      .filter((day) => day.events.length > 0);
+  }, [normalizedQuery, schedule.days]);
+
   const trackedEventCount = filteredScheduleDays.reduce((total, day) => total + day.events.length, 0);
+  const fullRehearsalEventCount = fullRehearsalScheduleDays.reduce((total, day) => total + day.events.length, 0);
   const modeOptions = [
     { id: "show-order" as const, label: "Show Order", shortLabel: "Show Order", icon: ListOrdered },
     { id: "schedule" as const, label: "Rehearsal", shortLabel: "Rehearsal", icon: CalendarDays },
+    { id: "full-rehearsal" as const, label: "TeamUp", shortLabel: "TeamUp", icon: CalendarRange },
     { id: "location" as const, label: "Location", shortLabel: "Location", icon: MapPin },
   ];
   const selectedShowGroup =
@@ -242,7 +424,7 @@ export function RecitalBrowser({
 
   return (
     <>
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-[#07080b]/95 px-3 py-2 backdrop-blur sm:px-4">
+      <header ref={headerRef} className="sticky top-0 z-50 border-b border-white/10 bg-[#07080b] px-3 py-2 sm:px-4">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
           <Link href="/" aria-label="Premier Dance home" className="flex min-w-0 flex-1 items-center gap-3">
             <Image
@@ -288,7 +470,7 @@ export function RecitalBrowser({
                     setQuery("");
                   }}
                   className={`min-h-9 rounded-[5px] text-xs font-bold uppercase tracking-[0.14em] transition ${
-                    isSelected ? "bg-white text-[#080808]" : "text-white/55 hover:bg-white/10 hover:text-white"
+                    isSelected ? "bg-[#1C4EFF] text-white" : "text-white/55 hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   {group.label}
@@ -298,9 +480,6 @@ export function RecitalBrowser({
           </div>
 
           <div className="grid gap-1.5 rounded-[6px] bg-black/20 p-1.5">
-            <p className="px-1.5 pb-0.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">
-              {selectedShowGroup.label} shows
-            </p>
             {selectedDayShows.map((show) => {
               const isSelected = show.showNumber === currentShow.showNumber;
               const meta = getShowMeta(show);
@@ -317,7 +496,7 @@ export function RecitalBrowser({
                   }}
                   className={`flex min-h-14 items-center justify-between gap-3 rounded-[6px] px-3 py-2 text-left transition ${
                     isSelected
-                      ? "bg-[#146ef5] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.18)]"
+                      ? "bg-[#1C4EFF] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.18)]"
                       : "bg-white/[0.03] text-white hover:bg-white/10"
                   }`}
                 >
@@ -400,8 +579,8 @@ export function RecitalBrowser({
                     item.type === "intermission"
                       ? "border-[#080808] bg-[#080808] text-white"
                       : isSelected
-                        ? "cursor-pointer border-[#146ef5] bg-[#eff6ff] text-[#080808] dark:border-[#5b91ff] dark:bg-[#0b1d3d] dark:text-white"
-                        : "cursor-pointer border-[#d8d8d8] bg-white text-[#080808] hover:border-[#146ef5] hover:bg-[#f7fbff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#146ef5] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-[#5b91ff] dark:hover:bg-white/10 dark:focus-visible:outline-[#5b91ff]"
+                        ? "cursor-pointer border-[#1C4EFF] bg-[#eff6ff] text-[#080808] dark:border-[#1C4EFF] dark:bg-[#0b1d3d] dark:text-white"
+                        : "cursor-pointer border-[#d8d8d8] bg-white text-[#080808] hover:border-[#1C4EFF] hover:bg-[#f7fbff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C4EFF] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-[#1C4EFF] dark:hover:bg-white/10 dark:focus-visible:outline-[#1C4EFF]"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -410,7 +589,7 @@ export function RecitalBrowser({
                         item.type === "intermission"
                           ? "border border-white/30 text-white"
                           : isSelected
-                            ? "border border-[#146ef5] bg-[#146ef5] text-white"
+                            ? "border border-[#1C4EFF] bg-[#1C4EFF] text-white"
                             : "border border-[#d8d8d8] text-[#080808] dark:border-white/15 dark:text-white"
                       }`}
                     >
@@ -424,8 +603,8 @@ export function RecitalBrowser({
                         aria-hidden="true"
                         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition ${
                           isSelected
-                            ? "bg-[#146ef5] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.2)]"
-                            : "border border-[#d8d8d8] text-[#146ef5] group-hover:border-[#146ef5] group-hover:bg-[#146ef5] group-hover:text-white dark:border-white/15 dark:text-white/75 dark:group-hover:border-[#5b91ff] dark:group-hover:bg-[#146ef5]"
+                            ? "bg-[#1C4EFF] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.2)]"
+                            : "border border-[#d8d8d8] text-[#1C4EFF] group-hover:border-[#1C4EFF] group-hover:bg-[#1C4EFF] group-hover:text-white dark:border-white/15 dark:text-white/75 dark:group-hover:border-[#1C4EFF] dark:group-hover:bg-[#1C4EFF]"
                         }`}
                       >
                         {isSelected ? <Check className="size-5" /> : <Plus className="size-5" />}
@@ -466,7 +645,7 @@ export function RecitalBrowser({
           <div className="mt-5 grid gap-4">
             <div className="rounded-[8px] border border-white/10 bg-white/5 p-3">
               <div className="flex items-start gap-3">
-                <CalendarDays aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#5b91ff]" />
+                <CalendarDays aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#1C4EFF]" />
                 <div className="min-w-0">
                   <h2 className="text-base font-semibold text-white">Your Rehearsals</h2>
                   <p className="mt-1 text-sm leading-5 text-white/60">
@@ -501,7 +680,10 @@ export function RecitalBrowser({
             <div className="grid gap-4" aria-live="polite">
               {filteredScheduleDays.map((day) => (
                 <section key={day.date} className="grid gap-2">
-                  <h3 className="sticky top-[93px] z-10 rounded-[4px] bg-[#07080b]/95 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50 backdrop-blur">
+                  <h3
+                    className="sticky z-30 -mx-3 border-y border-[#4f74ff] bg-[#1C4EFF] px-3 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_1px_0_rgba(255,255,255,0.18)] sm:-mx-4 sm:px-4"
+                    style={{ top: headerHeight }}
+                  >
                     {day.displayDate}
                   </h3>
                   <div className="grid gap-2">
@@ -515,7 +697,7 @@ export function RecitalBrowser({
                           key={event.id}
                           className={`rounded-[6px] border p-3 ${
                             matchesTracked
-                              ? "border-[#5b91ff] bg-[#0b1d3d]"
+                              ? "border-[#1C4EFF] bg-[#0b1d3d]"
                               : event.isImportant
                                 ? "border-white/15 bg-white/8"
                                 : "border-white/10 bg-white/5"
@@ -529,7 +711,94 @@ export function RecitalBrowser({
                             </div>
                             <div className="flex shrink-0 flex-col items-end gap-1">
                               {matchesTracked ? (
-                                <span className="rounded-full bg-[#146ef5] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white">
+                                <span className="rounded-full bg-[#1C4EFF] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white">
+                                  Tracked
+                                </span>
+                              ) : null}
+                              {event.title.toLowerCase().includes("bring costume") ? (
+                                <span className="rounded-full border border-[#f59e0b]/60 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#fed7aa]">
+                                  Costume
+                                </span>
+                              ) : null}
+                            </div>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        ) : mode === "full-rehearsal" ? (
+          <div className="mt-5 grid gap-4">
+            <div className="rounded-[8px] border border-white/10 bg-white/5 p-3">
+              <div className="flex items-start gap-3">
+                <CalendarRange aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#1C4EFF]" />
+                <div className="min-w-0">
+                  <h2 className="text-base font-semibold text-white">TeamUp Schedule</h2>
+                  <p className="mt-1 text-sm leading-5 text-white/60">
+                    Full TeamUp schedule for May 26-29.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <label className="relative block">
+              <span className="sr-only">Search full rehearsal schedule</span>
+              <Search
+                aria-hidden="true"
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/45"
+              />
+              <Input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search full schedule"
+                className="min-h-12 rounded-[4px] border-white/15 bg-white/5 pl-10 text-base text-white placeholder:text-white/45 focus-visible:border-white focus-visible:ring-white/20"
+              />
+            </label>
+
+            {fullRehearsalEventCount === 0 ? (
+              <div className="rounded-[6px] border border-white/10 bg-white/5 p-5 text-sm leading-6 text-white/70">
+                No TeamUp schedule items match this search.
+              </div>
+            ) : null}
+
+            <div className="grid gap-4" aria-live="polite">
+              {fullRehearsalScheduleDays.map((day) => (
+                <section key={day.date} className="grid gap-2">
+                  <h3
+                    className="sticky z-30 -mx-3 border-y border-[#4f74ff] bg-[#1C4EFF] px-3 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_1px_0_rgba(255,255,255,0.18)] sm:-mx-4 sm:px-4"
+                    style={{ top: headerHeight }}
+                  >
+                    {day.displayDate}
+                  </h3>
+                  <div className="grid gap-2">
+                    {day.events.map((event) => {
+                      const matchesTracked =
+                        eventMatchesTrackedRoutine(event, trackedRoutineTitles) ||
+                        eventMatchesTrackedShow(event, trackedShowNumbers);
+
+                      return (
+                        <article
+                          key={event.id}
+                          className={`rounded-[6px] border p-3 ${
+                            matchesTracked
+                              ? "border-[#1C4EFF] bg-[#0b1d3d]"
+                              : event.isImportant
+                                ? "border-white/15 bg-white/8"
+                                : "border-white/10 bg-white/5"
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="text-sm font-bold text-white">{event.time}</p>
+                              <h4 className="mt-1 text-base font-semibold leading-6 text-white">{event.title}</h4>
+                              <p className="mt-1 text-sm text-white/60">{getEventLocationLabel(event)}</p>
+                            </div>
+                            <div className="flex shrink-0 flex-col items-end gap-1">
+                              {matchesTracked ? (
+                                <span className="rounded-full bg-[#1C4EFF] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white">
                                   Tracked
                                 </span>
                               ) : null}
@@ -552,7 +821,7 @@ export function RecitalBrowser({
           <div className="mt-5 grid gap-4">
             <div className="rounded-[8px] border border-white/10 bg-white/5 p-4">
               <div className="flex items-start gap-3">
-                <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#5b91ff]" />
+                <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#1C4EFF]" />
                 <div className="min-w-0">
                   <h2 className="text-base font-semibold text-white">Location Info</h2>
                   <p className="mt-1 text-sm leading-5 text-white/60">
@@ -609,7 +878,7 @@ export function RecitalBrowser({
         aria-label="Recital sections"
         className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-[#07080b]/95 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-2 backdrop-blur"
       >
-        <div className="mx-auto grid max-w-3xl grid-cols-3 gap-1 rounded-[10px] border border-white/10 bg-white/5 p-1 sm:gap-2">
+        <div className="mx-auto grid max-w-3xl grid-cols-4 gap-1 rounded-[10px] border border-white/10 bg-white/5 p-1 sm:gap-2">
           {modeOptions.map((item) => {
             const isSelected = mode === item.id;
             const Icon = item.icon;
@@ -624,7 +893,7 @@ export function RecitalBrowser({
                 }}
                 aria-current={isSelected ? "page" : undefined}
                 className={`flex min-h-14 flex-col items-center justify-center gap-1 rounded-[8px] px-1 text-[11px] font-bold leading-none transition sm:min-h-12 sm:flex-row sm:gap-2 sm:px-3 sm:text-sm ${
-                  isSelected ? "bg-white text-[#080808]" : "text-white/58 hover:bg-white/10 hover:text-white"
+                  isSelected ? "bg-[#1C4EFF] text-white" : "text-white/58 hover:bg-white/10 hover:text-white"
                 }`}
               >
                 <Icon aria-hidden="true" className="size-5 sm:size-4" />
@@ -639,7 +908,7 @@ export function RecitalBrowser({
       <button
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-[calc(env(safe-area-inset-bottom)+5.35rem)] right-4 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white text-[#080808] shadow-lg shadow-black/40 transition hover:bg-white/90 sm:right-[calc(50%-23rem)]"
+        className="fixed bottom-[calc(env(safe-area-inset-bottom)+5.35rem)] right-4 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white shadow-lg shadow-black/40 backdrop-blur transition hover:bg-white/25 sm:right-[calc(50%-23rem)]"
         aria-label="Back to top"
       >
         <ArrowUp aria-hidden="true" className="size-5" />
