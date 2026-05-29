@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "data:recital-doc": "node scripts/convert-recital-doc.mjs && node scripts/build-elev8-program.mjs",
+    "data:program": "node scripts/build-elev8-program.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

@@ -1,0 +1,4327 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-29T01:12:48.439Z",
+  "source": {
+    "documentId": "1qvnxz1AeP8AqHeDMiqoTn5VDaWfVElCJfSP0S2U_hj0",
+    "documentTitle": "Copy of Recital Show Order + Notes",
+    "documentUrl": "https://docs.google.com/document/d/1qvnxz1AeP8AqHeDMiqoTn5VDaWfVElCJfSP0S2U_hj0/edit?tab=t.0",
+    "exportUrl": "https://docs.google.com/document/d/1qvnxz1AeP8AqHeDMiqoTn5VDaWfVElCJfSP0S2U_hj0/export?format=txt",
+    "pulledAt": "2026-05-29T01:01:06.613Z",
+    "sourceTextSha256": "ea3f8e539e88d15f7bfad4fc4207fe8164a8d0210ed044f99a798a6d7028c8e2"
+  },
+  "event": {
+    "title": "ELEV8: In The Details",
+    "dateRange": "May 30-31, 2026",
+    "venue": {
+      "name": "B&B Theaters",
+      "address": "16301 Midland Dr, Shawnee, KS 66217",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=16301%20Midland%20Dr%2C%20Shawnee%2C%20KS%2066217"
+    },
+    "photographyRule": "Recording is allowed. Flash photography is prohibited.",
+    "cellPhoneRule": "Please silence cell phones before the show begins.",
+    "intermissionNote": "Shows include a 15-minute intermission where listed in the program.",
+    "helpNotes": [
+      "Track dances from the Program tab, then use My Dances to see the order and spacing between routines.",
+      "Tracked dances are stored on this device only.",
+      "Ask a Premier Dance staff member at the venue for recital-day questions."
+    ]
+  },
+  "shows": [
+    {
+      "id": "show-1",
+      "showNumber": 1,
+      "label": "Saturday Noon Show",
+      "day": "Saturday",
+      "date": "2026-05-30",
+      "startTime": "12:00 PM",
+      "title": "Show 1",
+      "items": [
+        {
+          "id": "show-1-01-big-bad-wolf",
+          "type": "dance",
+          "position": 1,
+          "order": 1,
+          "title": "Big Bad Wolf",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Brecklyn Petty",
+            "Caroline Cohn",
+            "Cleo Patrick",
+            "Linley Williams",
+            "Mira Meierotto",
+            "Navi Dobbins",
+            "Penelope Watts",
+            "Scarlett Wassenberg",
+            "Stella Grace",
+            "Theodore Bednarz"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 24
+        },
+        {
+          "id": "show-1-02-rhinestones-1-monday",
+          "type": "dance",
+          "position": 2,
+          "order": 2,
+          "title": "Rhinestones 1 (Monday)",
+          "songTitle": "Ducks Dance Too",
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Addison Rose",
+            "Adley Smith",
+            "Alexis Nibarger",
+            "Emily Kirkegaard",
+            "Khloe Kirkegaard",
+            "Lilliana Villareal",
+            "Serena Chen",
+            "Tatum McElwain"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 28
+        },
+        {
+          "id": "show-1-03-pink-cadillac",
+          "type": "dance",
+          "position": 3,
+          "order": 3,
+          "title": "Pink Cadillac",
+          "songTitle": null,
+          "teacher": "Val Elazegui",
+          "teachers": [
+            "Val Elazegui"
+          ],
+          "dancers": [
+            "Chloe Baum",
+            "Claire Lewis",
+            "Cleo Patrick",
+            "Everly Lien",
+            "Kate Hyer",
+            "Liliana Baum",
+            "Pippa Barber"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 33
+        },
+        {
+          "id": "show-1-04-we-feel-cute",
+          "type": "dance",
+          "position": 4,
+          "order": 4,
+          "title": "We Feel Cute",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Savannah Carnes",
+            "Summer Kitzerow"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 37
+        },
+        {
+          "id": "show-1-05-mommy-and-me-filler",
+          "type": "filler",
+          "position": 5,
+          "order": 5,
+          "title": "Mommy & Me Filler",
+          "songTitle": null,
+          "teacher": "Jillian Richard",
+          "teachers": [
+            "Jillian Richard"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 41
+        },
+        {
+          "id": "show-1-06-ballet-aqua-tuesday-and-thursday",
+          "type": "dance",
+          "position": 6,
+          "order": 6,
+          "title": "Ballet Aqua (Tuesday & Thursday)",
+          "songTitle": "Princess Florine Variation",
+          "teacher": "Marlee Bailey Samani",
+          "teachers": [
+            "Marlee Bailey Samani"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Annie Scoby",
+            "Aubryn Antonucci",
+            "Blair Nibarger",
+            "Blakely Williams",
+            "Charlotte Watts",
+            "Chloe Morris",
+            "Cora de Leon",
+            "Eliza Elazegui",
+            "Ellie Hughes",
+            "Etta Walker",
+            "Evelyn Bednarz",
+            "Evelynn Elazegui",
+            "Hadley Wassenberg",
+            "Londyn Froese",
+            "Reagan Carson",
+            "Reagan Rojas",
+            "Remy Flynn",
+            "Scarlett Weigel",
+            "Stella Chen"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 44
+        },
+        {
+          "id": "show-1-07-rhinestones-1-wednesday",
+          "type": "dance",
+          "position": 7,
+          "order": 7,
+          "title": "Rhinestones 1 (Wednesday)",
+          "songTitle": "Supermodel",
+          "teacher": "Jordan West",
+          "teachers": [
+            "Jordan West"
+          ],
+          "dancers": [
+            "Emerson Penny",
+            "Finley Decker",
+            "Kinlee Lawson",
+            "Tatum McElwain"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 52
+        },
+        {
+          "id": "show-1-08-pearl-hip-hop-thursday-and-silver-gold-hip-hop",
+          "type": "dance",
+          "position": 8,
+          "order": 8,
+          "title": "Pearl Hip Hop (Thursday) & Silver/Gold Hip Hop",
+          "songTitle": "Party People",
+          "teacher": "Val Elazegui",
+          "teachers": [
+            "Val Elazegui"
+          ],
+          "dancers": [
+            "Angelica Lisch",
+            "Avaya Galligan",
+            "Brecklyn Petty",
+            "Caroline Cohn",
+            "Charlotte Antilla",
+            "Chloe Baum",
+            "Claire Antilla",
+            "Cleo Patrick",
+            "Elise DeCelles",
+            "Eliza Elazegui",
+            "Evelynn Elazegui",
+            "Everly Lien",
+            "Hart Knop",
+            "Hope Wakole/Antonucci",
+            "Insiya Ahmed",
+            "Isla Sands",
+            "Juniper Foster",
+            "Mira Meierotto",
+            "Navi Dobbins",
+            "Remy Flynn",
+            "Sasha Chemoganskiy",
+            "Savannah Carnes",
+            "Sienna Wilbanks",
+            "Stella Grace",
+            "Summer Kitzerow",
+            "Victoria Nogueras"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 62
+        },
+        {
+          "id": "show-1-09-i-never-dreamed-youd-leave-in-summer",
+          "type": "dance",
+          "position": 9,
+          "order": 9,
+          "title": "I Never Dreamed You'd Leave in Summer",
+          "songTitle": null,
+          "teacher": "Keri LaGrand",
+          "teachers": [
+            "Keri LaGrand"
+          ],
+          "dancers": [
+            "Brooklyn Kaberline"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 66
+        },
+        {
+          "id": "show-1-10-gold-combo",
+          "type": "dance",
+          "position": 10,
+          "order": 10,
+          "title": "Gold Combo",
+          "songTitle": "New Attitude",
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Angelica Lisch",
+            "Brooklyn Woolery",
+            "Caroline Cohn",
+            "Charlotte Watts",
+            "Etta Walker",
+            "Evelynn Elazegui",
+            "Londyn Froese",
+            "Reagan Carson",
+            "Reagan Rojas",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 75
+        },
+        {
+          "id": "show-1-11-islands",
+          "type": "dance",
+          "position": 11,
+          "order": 11,
+          "title": "Islands",
+          "songTitle": null,
+          "teacher": "Emily Adair",
+          "teachers": [
+            "Emily Adair"
+          ],
+          "dancers": [
+            "Annie Scoby",
+            "Ellie Hughes",
+            "Eloise O'Connor",
+            "Evietta Welsh",
+            "Londyn Froese"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 79
+        },
+        {
+          "id": "show-1-12-ballet-silver-thursday",
+          "type": "dance",
+          "position": 12,
+          "order": 12,
+          "title": "Ballet Silver (Thursday)",
+          "songTitle": "Pink Pony Club",
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Caroline Cohn",
+            "Charlotte Watts",
+            "Cleo Patrick",
+            "Mira Meierotto",
+            "Navi Dobbins",
+            "Reagan Rojas",
+            "Scarlett Wassenberg",
+            "Theodore Bednarz"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 83
+        },
+        {
+          "id": "show-1-13-lets-party",
+          "type": "dance",
+          "position": 13,
+          "order": 13,
+          "title": "Let's Party",
+          "songTitle": null,
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Angelica Lisch",
+            "Brylee Barbour",
+            "Cora de Leon",
+            "Etta Walker",
+            "Evelynn Elazegui",
+            "Everly Lien",
+            "Kate Hyer",
+            "Liliana Baum",
+            "Pippa Barber",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 91
+        },
+        {
+          "id": "show-1-14-paw-patrol",
+          "type": "dance",
+          "position": 14,
+          "order": 14,
+          "title": "Paw Patrol",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Emily Barbosa",
+            "Juniper Foster",
+            "Nelle Robben",
+            "Savannah Carnes",
+            "Summer Kitzerow",
+            "Tatum McElwain"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 98
+        },
+        {
+          "id": "show-1-15-gold-tap-monday",
+          "type": "dance",
+          "position": 15,
+          "order": 15,
+          "title": "Gold Tap (Monday)",
+          "songTitle": "The Lonely Goatherd",
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Callan Gibbens",
+            "Caroline Cohn",
+            "Cleo Patrick",
+            "Eliza Elazegui",
+            "Ellie Hughes",
+            "Evelynn Elazegui",
+            "Isla Sands",
+            "Navi Dobbins",
+            "Reagan Rojas",
+            "Remy Flynn",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 105
+        },
+        {
+          "id": "show-1-intermission-117",
+          "type": "intermission",
+          "position": 16,
+          "order": null,
+          "title": "Intermission",
+          "songTitle": null,
+          "teacher": null,
+          "teachers": [],
+          "dancers": [],
+          "programNote": "15-minute intermission",
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 117,
+          "durationMinutes": 15
+        },
+        {
+          "id": "show-1-16-daddy-daughter-dance",
+          "type": "featured",
+          "position": 17,
+          "order": 16,
+          "title": "Daddy Daughter Dance",
+          "songTitle": "Cinderella",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 124
+        },
+        {
+          "id": "show-1-17-funky-monkey",
+          "type": "dance",
+          "position": 18,
+          "order": 17,
+          "title": "Funky Monkey",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Ari de Leon",
+            "Brecklyn Petty",
+            "Claire Lewis",
+            "Cleo Patrick",
+            "Linley Williams",
+            "Mira Meierotto",
+            "Nelle Robben",
+            "Penelope Watts",
+            "Scarlett Wassenberg",
+            "Stella Grace",
+            "Tatum McElwain",
+            "Theodore Bednarz",
+            "Victoria Nogueras"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 130
+        },
+        {
+          "id": "show-1-18-bad-guy",
+          "type": "dance",
+          "position": 19,
+          "order": 18,
+          "title": "Bad Guy",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Blair Nibarger",
+            "Britta Nordstrom",
+            "Caroline Cohn",
+            "Charlotte Watts",
+            "Cleo Patrick",
+            "Daisy Selman",
+            "Eliza Elazegui",
+            "Evelyn Bednarz",
+            "Isla Sands",
+            "Navi Dobbins",
+            "Reagan Carson",
+            "Scarlett Weigel"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 177
+        },
+        {
+          "id": "show-1-19-rhinestones-2-monday",
+          "type": "dance",
+          "position": 20,
+          "order": 19,
+          "title": "Rhinestones 2 (Monday)",
+          "songTitle": "I Like to Move It",
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Emily Barbosa",
+            "Juniper Foster",
+            "Khloe Kirkegaard",
+            "Nelle Robben",
+            "Savannah Carnes",
+            "Summer Kitzerow"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 181
+        },
+        {
+          "id": "show-1-20-pearl-silver-tap-wednesday",
+          "type": "dance",
+          "position": 21,
+          "order": 20,
+          "title": "Pearl/Silver Tap (Wednesday)",
+          "songTitle": "Sunshine Day",
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Chloe Baum",
+            "Everly Lien",
+            "Hart Knop",
+            "Kaylee Lawson",
+            "Mira Meierotto",
+            "Navi Dobbins",
+            "Penelope Watts",
+            "Stella Grace",
+            "Victoria Nogueras"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 188
+        },
+        {
+          "id": "show-1-21-tiny-tendu-tuesday",
+          "type": "dance",
+          "position": 22,
+          "order": 21,
+          "title": "Tiny Tendu (Tuesday)",
+          "songTitle": "Just Like a Butterfly",
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Alexis Nibarger",
+            "Ari de Leon",
+            "Maeve Scoby",
+            "Tatum McElwain"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 192
+        },
+        {
+          "id": "show-1-22-outta-my-hair",
+          "type": "dance",
+          "position": 23,
+          "order": 22,
+          "title": "Outta My Hair",
+          "songTitle": null,
+          "teacher": "Val Elazegui",
+          "teachers": [
+            "Val Elazegui"
+          ],
+          "dancers": [
+            "Angelica Lisch",
+            "Brylee Barbour",
+            "Evelynn Elazegui",
+            "Gwen Avant",
+            "Liliana Baum",
+            "Nyla Najera",
+            "Viktoria Kliukevicius"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 196
+        },
+        {
+          "id": "show-1-23-rio",
+          "type": "dance",
+          "position": 24,
+          "order": 23,
+          "title": "Rio",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Ari de Leon",
+            "Cleo Patrick",
+            "Juniper Foster",
+            "Khloe Kirkegaard",
+            "Reagan Carson",
+            "Summer Kitzerow",
+            "Victoria Nogueras"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 200
+        },
+        {
+          "id": "show-1-24-always-remember-us-this-way",
+          "type": "dance",
+          "position": 25,
+          "order": 24,
+          "title": "Always Remember Us This Way",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Hadley Ouellette"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 207
+        },
+        {
+          "id": "show-1-25-ballet-gold-tuesday",
+          "type": "dance",
+          "position": 26,
+          "order": 25,
+          "title": "Ballet Gold (Tuesday)",
+          "songTitle": "Golden",
+          "teacher": "Emily Adair",
+          "teachers": [
+            "Emily Adair"
+          ],
+          "dancers": [
+            "Angelica Lisch",
+            "Britton Wirfel",
+            "Brooklyn Woolery",
+            "Caroline Cohn",
+            "Isla Sands",
+            "Liliana Baum",
+            "Navi Dobbins",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 211
+        },
+        {
+          "id": "show-1-26-puttin-on-the-ritz",
+          "type": "dance",
+          "position": 27,
+          "order": 26,
+          "title": "Puttin' on the Ritz",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Claire Robben",
+            "Eden Schneider",
+            "Evelyn Bednarz",
+            "Myla Pyle"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 215
+        },
+        {
+          "id": "show-1-27-pearl-silver-combo",
+          "type": "dance",
+          "position": 28,
+          "order": 27,
+          "title": "Pearl/Silver Combo",
+          "songTitle": "Grow",
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Brecklyn Petty",
+            "Charlotte Antilla",
+            "Claire Antilla",
+            "Cleo Patrick",
+            "Hope Wakole/Antonucci",
+            "Insiya Ahmed",
+            "Linley Williams",
+            "Penelope Watts",
+            "Raelynn Neri",
+            "Scarlett Wassenberg",
+            "Stella Grace",
+            "Theodore Bednarz",
+            "Victoria Nogueras"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 219
+        },
+        {
+          "id": "show-1-28-the-pirates-who-dont-do-anything",
+          "type": "dance",
+          "position": 29,
+          "order": 28,
+          "title": "The Pirates Who Don't Do Anything",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Addison Rose",
+            "Adley Smith",
+            "Emily Kirkegaard",
+            "Lilliana Villareal",
+            "Tatum McElwain"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 227
+        },
+        {
+          "id": "show-1-29-shes-in-love",
+          "type": "dance",
+          "position": 30,
+          "order": 29,
+          "title": "She's In Love",
+          "songTitle": null,
+          "teacher": "Katelyn Falconer",
+          "teachers": [
+            "Katelyn Falconer"
+          ],
+          "dancers": [
+            "Blakely Williams",
+            "Brooklyn Woolery",
+            "Etta Walker",
+            "Evietta Welsh",
+            "Liliana Baum",
+            "Remy Flynn",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 230
+        },
+        {
+          "id": "show-1-30-ballet-pearl-and-silver-tuesday-and-ballet-pearl-silver-gold-saturday",
+          "type": "dance",
+          "position": 31,
+          "order": 30,
+          "title": "Ballet Pearl & Silver (Tuesday) & Ballet Pearl/Silver/Gold (Saturday)",
+          "songTitle": "Shake It Off",
+          "teacher": "Emily Adair",
+          "teachers": [
+            "Emily Adair"
+          ],
+          "dancers": [
+            "Ari de Leon",
+            "Brecklyn Petty",
+            "Charlotte Antilla",
+            "Chloe Baum",
+            "Claire Lewis",
+            "Everly Lien",
+            "Juniper Foster",
+            "Kate Hyer",
+            "Linley Williams",
+            "Mayla Rumbach",
+            "Naddie Rumbach",
+            "Penelope Watts",
+            "Pippa Barber",
+            "Savannah Carnes",
+            "Stella Grace",
+            "Summer Kitzerow",
+            "Victoria Nogueras"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 248
+        },
+        {
+          "id": "show-1-31-all-through-the-night",
+          "type": "dance",
+          "position": 32,
+          "order": 31,
+          "title": "All Through The Night",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 252
+        },
+        {
+          "id": "show-1-32-you-raise-me-up",
+          "type": "dance",
+          "position": 33,
+          "order": 32,
+          "title": "You Raise Me Up",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Blair Nibarger",
+            "Britta Nordstrom",
+            "Caroline Cohn",
+            "Charlotte Watts",
+            "Eliza Elazegui",
+            "Navi Dobbins",
+            "Reagan Carson",
+            "Scarlett Weigel",
+            "Daisy Selman"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 256
+        },
+        {
+          "id": "show-1-33-the-mouse-house",
+          "type": "dance",
+          "position": 34,
+          "order": 33,
+          "title": "The Mouse House",
+          "songTitle": null,
+          "teacher": "Val Elazegui",
+          "teachers": [
+            "Val Elazegui"
+          ],
+          "dancers": [
+            "Emily Barbosa",
+            "Khloe Kirkegaard"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 263
+        },
+        {
+          "id": "show-1-34-pearl-silver-gold-aqua-musical-theater",
+          "type": "dance",
+          "position": 35,
+          "order": 34,
+          "title": "Pearl/Silver/Gold/Aqua Musical Theater",
+          "songTitle": "The Greatest Show",
+          "teacher": "Katelyn Falconer",
+          "teachers": [
+            "Katelyn Falconer"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Annie Scoby",
+            "Blakely Williams",
+            "Britta Nordstrom",
+            "Britton Wirfel",
+            "Chloe Morris",
+            "Cora de Leon",
+            "Eliza Elazegui",
+            "Ellie Hughes",
+            "Emma Braune",
+            "Etta Walker",
+            "Evelyn Bednarz",
+            "Evietta Welsh",
+            "Hadley Wassenberg",
+            "Isla Sands",
+            "Kaylee Lawson",
+            "Marnie Rodriguez",
+            "Navi Dobbins",
+            "Reagan Rojas",
+            "Scarlett Weigel",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 272
+        },
+        {
+          "id": "show-1-35-rhinestones-2-tuesday",
+          "type": "dance",
+          "position": 36,
+          "order": 35,
+          "title": "Rhinestones 2 (Tuesday)",
+          "songTitle": "It’s a Girl Party",
+          "teacher": "Jordan West",
+          "teachers": [
+            "Jordan West"
+          ],
+          "dancers": [
+            "Ari de Leon",
+            "Chloe Baum",
+            "Maeve Scoby",
+            "Tatum McElwain"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 276
+        },
+        {
+          "id": "show-1-36-frozen-heart",
+          "type": "dance",
+          "position": 37,
+          "order": 36,
+          "title": "Frozen Heart",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Blakely Williams",
+            "Britton Wirfel",
+            "Chloe Morris",
+            "Evietta Welsh"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 280
+        },
+        {
+          "id": "show-1-37-finale",
+          "type": "finale",
+          "position": 38,
+          "order": 37,
+          "title": "Finale",
+          "songTitle": "Dance With Me Tonight",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 287
+        }
+      ],
+      "itemCount": 38,
+      "danceCount": 34,
+      "trackableCount": 34
+    },
+    {
+      "id": "show-2",
+      "showNumber": 2,
+      "label": "Saturday 6:00 PM Show",
+      "day": "Saturday",
+      "date": "2026-05-30",
+      "startTime": "6:00 PM",
+      "title": "Show 2",
+      "items": [
+        {
+          "id": "show-2-01-oh-yeah",
+          "type": "dance",
+          "position": 1,
+          "order": 1,
+          "title": "Oh Yeah",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Ava Bednarz",
+            "Channing Kice",
+            "Eloise Walker",
+            "Evie Richard",
+            "Harper Osborne",
+            "Jillian Wasleski",
+            "Layla Barry",
+            "Lucy Knutson",
+            "Paige McCann",
+            "Piper Otto",
+            "Sabina Crocker",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 359
+        },
+        {
+          "id": "show-2-02-girls-night-out",
+          "type": "dance",
+          "position": 2,
+          "order": 2,
+          "title": "Girls Night Out",
+          "songTitle": null,
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Evelyn Bednarz",
+            "Isla Sands",
+            "Scarlett Weigel"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 363
+        },
+        {
+          "id": "show-2-03-diamond-opal-musical-theater",
+          "type": "dance",
+          "position": 3,
+          "order": 3,
+          "title": "Diamond/Opal Musical Theater",
+          "songTitle": "Seasons of Love",
+          "teacher": "Katelyn Falconer",
+          "teachers": [
+            "Katelyn Falconer"
+          ],
+          "dancers": [
+            "Ali Hartung",
+            "Beatrice Wu",
+            "Blair Gibbens",
+            "Callan Gibbens",
+            "Eden Schneider",
+            "Eloise O'Connor",
+            "Emma Braune",
+            "Isla Cook",
+            "Lola Stunkel",
+            "Vivian Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 367
+        },
+        {
+          "id": "show-2-04-always-remember-us-this-way",
+          "type": "dance",
+          "position": 4,
+          "order": 4,
+          "title": "Always Remember Us This Way",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Hadley Ouellette"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 371
+        },
+        {
+          "id": "show-2-05-peas-in-a-pod",
+          "type": "dance",
+          "position": 5,
+          "order": 5,
+          "title": "Peas in a Pod",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Chloe Bulcock",
+            "Rory Wolken"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 375
+        },
+        {
+          "id": "show-2-06-intro-to-movement-tuesday",
+          "type": "dance",
+          "position": 6,
+          "order": 6,
+          "title": "Intro to Movement (Tuesday)",
+          "songTitle": "Rainbow",
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Angelica Lisch",
+            "Caroline Cohn",
+            "Chloe Morris",
+            "Daisy Selman",
+            "Eliza Elazegui",
+            "Evelyn Bednarz",
+            "Evelynn Elazegui",
+            "Hadley Wassenberg",
+            "Isla Sands",
+            "Liliana Baum",
+            "Londyn Froese",
+            "Navi Dobbins",
+            "Scarlett Weigel",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 379
+        },
+        {
+          "id": "show-2-07-my-mind",
+          "type": "dance",
+          "position": 7,
+          "order": 7,
+          "title": "My Mind",
+          "songTitle": null,
+          "teacher": "Keri LaGrand",
+          "teachers": [
+            "Keri LaGrand"
+          ],
+          "dancers": [
+            "Karleigh Miller"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 383
+        },
+        {
+          "id": "show-2-08-do-your-thing",
+          "type": "dance",
+          "position": 8,
+          "order": 8,
+          "title": "Do Your Thing",
+          "songTitle": null,
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Beatrice Wu",
+            "Chloe Bulcock",
+            "Emersyn Crary",
+            "Finley Waddell",
+            "Grace Miller",
+            "Gwen Avant",
+            "Isla Cook",
+            "Vivian Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 387
+        },
+        {
+          "id": "show-2-09-shout",
+          "type": "dance",
+          "position": 9,
+          "order": 9,
+          "title": "Shout",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Angelica Lisch",
+            "Brylee Barbour",
+            "Etta Walker",
+            "Evelynn Elazegui",
+            "Everly Lien",
+            "Nyla Najera",
+            "Viktoria Kliukevicius"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 391
+        },
+        {
+          "id": "show-2-10-platinum-ballet",
+          "type": "dance",
+          "position": 10,
+          "order": 10,
+          "title": "Platinum Ballet",
+          "songTitle": "Sleeping Beauty Fairy Variation",
+          "teacher": "Emily Adair",
+          "teachers": [
+            "Emily Adair"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Avalyn Speth",
+            "Ayanna Nascimento",
+            "Bella Lentz",
+            "Braelyn Alexander",
+            "Carsen Dennis",
+            "Chloe Bulcock",
+            "Claire Wu",
+            "Daeleon Brown",
+            "Eden Doyle",
+            "Elena Bertrand",
+            "Ella Jergens",
+            "Evelyn Lisch",
+            "Kayley Morgan",
+            "Madelyn Sherwood",
+            "Nishna Meesa",
+            "Olivia Carella",
+            "Rory Wolken"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 433
+        },
+        {
+          "id": "show-2-11-mommy-and-me-filler",
+          "type": "filler",
+          "position": 11,
+          "order": 11,
+          "title": "Mommy & Me Filler",
+          "songTitle": null,
+          "teacher": "Jillian Richard",
+          "teachers": [
+            "Jillian Richard"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 437
+        },
+        {
+          "id": "show-2-12-diamond-tap-tuesday-and-thursday",
+          "type": "dance",
+          "position": 12,
+          "order": 12,
+          "title": "Diamond Tap (Tuesday & Thursday)",
+          "songTitle": "Witch Doctor",
+          "teacher": "Abigail Pilecki",
+          "teachers": [
+            "Abigail Pilecki"
+          ],
+          "dancers": [
+            "Cora Lonergan",
+            "Harper Osborne",
+            "Isla Cook",
+            "Liliana Baum"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 440
+        },
+        {
+          "id": "show-2-13-watch-this",
+          "type": "dance",
+          "position": 13,
+          "order": 13,
+          "title": "Watch This",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Britton Wirfel",
+            "Emma Braune",
+            "Evelyn Bednarz",
+            "Hadley Wassenberg",
+            "Isla Sands",
+            "Remy Flynn",
+            "Stella Chen"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 444
+        },
+        {
+          "id": "show-2-14-high-school-dance-team-thursday",
+          "type": "dance",
+          "position": 14,
+          "order": 14,
+          "title": "High School Dance Team (Thursday)",
+          "songTitle": "Throwback",
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Cora de Leon",
+            "Courtney Conrad",
+            "Ellie Hughes",
+            "Etta Walker",
+            "Grace Miller",
+            "Jacey Erwin",
+            "Katelyn Rudisill",
+            "Kennedy Wolfe",
+            "Madison Taylor",
+            "Maggie Clayton",
+            "Nadia Heinzmann",
+            "Paige Stammer"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 448
+        },
+        {
+          "id": "show-2-15-aqua-opal-combo",
+          "type": "dance",
+          "position": 15,
+          "order": 15,
+          "title": "Aqua/Opal Combo",
+          "songTitle": "Wanna Be",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Annie Scoby",
+            "Aubryn Antonucci",
+            "Britta Nordstrom",
+            "Charlotte Watts",
+            "Claire Robben",
+            "Daisy Selman",
+            "Eden Schneider",
+            "Eliza Elazegui",
+            "Emma Braune",
+            "Evelyn Bednarz",
+            "Hadley Wassenberg",
+            "Harlow Smalley",
+            "Londyn Froese",
+            "Myla Pyle",
+            "Navi Dobbins",
+            "Reagan Carson"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 452
+        },
+        {
+          "id": "show-2-16-you-ain-t-no-celebrity",
+          "type": "dance",
+          "position": 16,
+          "order": 16,
+          "title": "You Ain’t No Celebrity",
+          "songTitle": null,
+          "teacher": "Aaron Czuprenski",
+          "teachers": [
+            "Aaron Czuprenski"
+          ],
+          "dancers": [
+            "Char Jones",
+            "Cora Lonergan",
+            "Darcie Chapin",
+            "Kinsley Kobler",
+            "Layla Barry",
+            "Navy Wittgren",
+            "Nixon Wittgren"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 455
+        },
+        {
+          "id": "show-2-17-velma-and-roxie",
+          "type": "dance",
+          "position": 17,
+          "order": 17,
+          "title": "Velma & Roxie",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Evie Richard",
+            "Karleigh Miller"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 459
+        },
+        {
+          "id": "show-2-18-teach-me-how-to-shimmy",
+          "type": "dance",
+          "position": 18,
+          "order": 18,
+          "title": "Teach Me How to Shimmy",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Annie Scoby",
+            "Eloise O'Connor",
+            "Etta Walker",
+            "Evietta Welsh",
+            "Gwen Avant",
+            "Londyn Froese",
+            "Reagan Rojas",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 463
+        },
+        {
+          "id": "show-2-19-dang",
+          "type": "dance",
+          "position": 19,
+          "order": 19,
+          "title": "Dang",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Carsen Dennis",
+            "Catherine Dennis",
+            "Claire Wu",
+            "Ella Jergens",
+            "Evie Nydegger",
+            "Lila Loschen",
+            "Olivia Carella"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 470
+        },
+        {
+          "id": "show-2-20-gold-diamond-tap-tuesday-thursday",
+          "type": "dance",
+          "position": 20,
+          "order": 20,
+          "title": "Gold/Diamond Tap (Tuesday/Thursday)",
+          "songTitle": "Opalite",
+          "teacher": "Abigail Pilecki",
+          "teachers": [
+            "Abigail Pilecki"
+          ],
+          "dancers": [
+            "Blakely Waldron",
+            "Charlotte Watts",
+            "Claire Robben",
+            "Daisy Selman",
+            "Eden Schneider",
+            "Emma Braune",
+            "Evelynn Elazegui",
+            "Evietta Welsh",
+            "Harlow Smalley",
+            "Katelyn Rudisill",
+            "Kenzie Hughes",
+            "Liliana Baum",
+            "Madisun Morris",
+            "Myla Pyle"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 474
+        },
+        {
+          "id": "show-2-intermission-482",
+          "type": "intermission",
+          "position": 21,
+          "order": null,
+          "title": "Intermission",
+          "songTitle": null,
+          "teacher": null,
+          "teachers": [],
+          "dancers": [],
+          "programNote": "15-minute intermission",
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 482,
+          "durationMinutes": 15
+        },
+        {
+          "id": "show-2-21-dudes-dance",
+          "type": "featured",
+          "position": 22,
+          "order": 21,
+          "title": "Dudes Dance",
+          "songTitle": "We Will Rock You",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 487
+        },
+        {
+          "id": "show-2-22-right-about-now",
+          "type": "dance",
+          "position": 23,
+          "order": 22,
+          "title": "Right About Now",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Ava Araujo",
+            "Aven Hawkins",
+            "Brooklyn Ginger",
+            "Chloe Bulcock",
+            "Cora de Leon",
+            "Elena Bertrand",
+            "Jacey Erwin",
+            "Lesley Haase",
+            "Nyla Najera",
+            "Rory Wolken",
+            "Sophia Pasko",
+            "Vivian Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 493
+        },
+        {
+          "id": "show-2-23-candy-man",
+          "type": "dance",
+          "position": 24,
+          "order": 23,
+          "title": "Candy Man",
+          "songTitle": null,
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Ayanna Nascimento",
+            "Brielle Myers",
+            "Caitlyn Manning",
+            "Daeleon Brown",
+            "Evelyn Lisch",
+            "Hadley Ouellette",
+            "Madelyn Sherwood",
+            "Sidney Cook"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 497
+        },
+        {
+          "id": "show-2-24-you-took-my-look",
+          "type": "dance",
+          "position": 25,
+          "order": 24,
+          "title": "You Took My Look",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Charlotte Watts",
+            "Chloe Morris",
+            "Evelyn Bednarz",
+            "Isla Sands",
+            "Myla Pyle",
+            "Reagan Carson",
+            "Scarlett Weigel"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 501
+        },
+        {
+          "id": "show-2-25-i-feel-like-dancing",
+          "type": "dance",
+          "position": 26,
+          "order": 25,
+          "title": "I Feel Like Dancing",
+          "songTitle": null,
+          "teacher": "Abigail Pilecki",
+          "teachers": [
+            "Abigail Pilecki"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Beatrice Wu",
+            "Blair Gibbens",
+            "Elena Bertrand",
+            "Evelyn Lisch",
+            "Rory Wolken",
+            "Emery Kueser"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 508
+        },
+        {
+          "id": "show-2-26-jail-house-rock",
+          "type": "dance",
+          "position": 27,
+          "order": 26,
+          "title": "Jail House Rock",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Addie Easley",
+            "Ellie Hughes",
+            "Evietta Welsh",
+            "Finley Waddell",
+            "Grace Miller",
+            "Katelyn Rudisill",
+            "Lexi Suiter",
+            "Londyn Froese",
+            "Maggie Clayton"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 510
+        },
+        {
+          "id": "show-2-27-up-all-night",
+          "type": "dance",
+          "position": 28,
+          "order": 27,
+          "title": "Up All Night",
+          "songTitle": null,
+          "teacher": "Kalley",
+          "teachers": [
+            "Kalley"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Avalyn Speth",
+            "Ayanna Nascimento",
+            "Bella Lentz",
+            "Caitlyn Manning",
+            "Capri Pento",
+            "Carsen Dennis",
+            "Claire Wu",
+            "Daeleon Brown",
+            "Ella Jergens",
+            "Evie Nydegger",
+            "Finley Franz",
+            "Finley White",
+            "Hadley Ouellette",
+            "Isabel Cinalli",
+            "Jenna Harn",
+            "Jillian Wasleski",
+            "Kayley Morgan",
+            "Lacey Harris",
+            "Nishna Meesa",
+            "Olivia Carella",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 517
+        },
+        {
+          "id": "show-2-28-aqua-opal-hip-hop-diamond-hip-hop",
+          "type": "dance",
+          "position": 29,
+          "order": 28,
+          "title": "Aqua/Opal Hip Hop + Diamond Hip Hop",
+          "songTitle": "Get Silly",
+          "teacher": "Kalley",
+          "teachers": [
+            "Kalley"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Addie Easley",
+            "Annie Scoby",
+            "Aubryn Antonucci",
+            "Beatrice Wu",
+            "Britta Nordstrom",
+            "Chloe Bulcock",
+            "Claire Robben",
+            "Cora de Leon",
+            "Daisy Selman",
+            "Eden Doyle",
+            "Ellie Hughes",
+            "Etta Walker",
+            "Evelyn Bednarz",
+            "Harlow Smalley",
+            "Jacey Erwin",
+            "Lola Stunkel",
+            "Myla Pyle",
+            "Niara Leslie",
+            "Paige Stammer"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 521
+        },
+        {
+          "id": "show-2-29-vortex",
+          "type": "dance",
+          "position": 30,
+          "order": 29,
+          "title": "Vortex",
+          "songTitle": null,
+          "teacher": "Ava Curbow",
+          "teachers": [
+            "Ava Curbow"
+          ],
+          "dancers": [
+            "Paige McCann"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 525
+        },
+        {
+          "id": "show-2-30-quake",
+          "type": "dance",
+          "position": 31,
+          "order": 30,
+          "title": "Quake",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Ava Bednarz",
+            "Brityn Satterfield",
+            "Cora Lonergan",
+            "Eloise Walker",
+            "Evie Richard",
+            "Harper Osborne",
+            "Jillian Wasleski",
+            "Kennedy Carver",
+            "Layla Barry",
+            "Navy Wittgren",
+            "Nixon Wittgren",
+            "Sabina Crocker"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 529
+        },
+        {
+          "id": "show-2-31-uncovered",
+          "type": "dance",
+          "position": 32,
+          "order": 31,
+          "title": "Uncovered",
+          "songTitle": null,
+          "teacher": "Marlee Bailey Samani",
+          "teachers": [
+            "Marlee Bailey Samani"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Finley Nordstrom"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 534
+        },
+        {
+          "id": "show-2-32-tea-party",
+          "type": "dance",
+          "position": 33,
+          "order": 32,
+          "title": "Tea Party",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Ari de Leon",
+            "Caroline Cohn",
+            "Claire Robben",
+            "Daisy Selman",
+            "Eden Schneider",
+            "Eliza Elazegui",
+            "Harlow Smalley",
+            "Kennedy Carver",
+            "Layla Barry",
+            "Mira Meierotto",
+            "Navi Dobbins",
+            "Penelope Watts",
+            "Reagan Carson"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 541
+        },
+        {
+          "id": "show-2-33-andy-griffith",
+          "type": "dance",
+          "position": 34,
+          "order": 33,
+          "title": "Andy Griffith",
+          "songTitle": null,
+          "teacher": "Katelyn Falconer",
+          "teachers": [
+            "Katelyn Falconer"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Ava Araujo",
+            "Braelyn Alexander",
+            "Isla Cook",
+            "Jacey Erwin",
+            "Jenna Harn",
+            "Katelyn Rudisill",
+            "Kayley Morgan",
+            "Kennedy Wolfe",
+            "Nadia Heinzmann",
+            "Olivia Carella",
+            "Rory Wolken",
+            "Sophia Pasko"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 548
+        },
+        {
+          "id": "show-2-34-gasp",
+          "type": "dance",
+          "position": 35,
+          "order": 34,
+          "title": "Gasp",
+          "songTitle": null,
+          "teacher": "Sammee Schirmer",
+          "teachers": [
+            "Sammee Schirmer"
+          ],
+          "dancers": [
+            "Brooklyn Kaberline"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 552
+        },
+        {
+          "id": "show-2-35-war-of-the-mind",
+          "type": "dance",
+          "position": 36,
+          "order": 35,
+          "title": "War of the Mind",
+          "songTitle": null,
+          "teacher": "Shannon Mather",
+          "teachers": [
+            "Shannon Mather"
+          ],
+          "dancers": [
+            "Evie Richard",
+            "Kar Miller"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 556
+        },
+        {
+          "id": "show-2-36-elementary-dance-team-thursday",
+          "type": "dance",
+          "position": 37,
+          "order": 36,
+          "title": "Elementary Dance Team (Thursday)",
+          "songTitle": "Stop",
+          "teacher": "Val Elazegui",
+          "teachers": [
+            "Val Elazegui"
+          ],
+          "dancers": [
+            "Emma Braune",
+            "Evelyn Bednarz",
+            "Liliana Baum",
+            "Sophie Berney"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 560
+        },
+        {
+          "id": "show-2-37-red-light-green-light",
+          "type": "dance",
+          "position": 38,
+          "order": 37,
+          "title": "Red Light Green Light",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Aubryn Antonucci",
+            "Ava Bednarz",
+            "Blakely Waldron",
+            "Brityn Satterfield",
+            "Char Jones",
+            "Cora Lonergan",
+            "Darcie Chapin",
+            "Finley Nordstrom",
+            "Harlow Smalley",
+            "Harper Osborne",
+            "Kennedy Carver",
+            "Kinsley Kobler",
+            "Layla Barry",
+            "Navy Wittgren",
+            "Nixon Wittgren",
+            "Piper Otto",
+            "Sabina Crocker"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 568
+        },
+        {
+          "id": "show-2-38-your-song",
+          "type": "dance",
+          "position": 39,
+          "order": 38,
+          "title": "Your Song",
+          "songTitle": null,
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Isla Cook",
+            "Rory Wolken"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 573
+        },
+        {
+          "id": "show-2-39-telephone",
+          "type": "dance",
+          "position": 40,
+          "order": 39,
+          "title": "Telephone",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Caroline Cohn",
+            "Charlotte Watts",
+            "Daisy Selman",
+            "Eliza Elazegui",
+            "Isla Sands",
+            "Mira Meierotto",
+            "Navi Dobbins",
+            "Penelope Watts",
+            "Reagan Carson"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 577
+        },
+        {
+          "id": "show-2-40-finale",
+          "type": "finale",
+          "position": 41,
+          "order": 40,
+          "title": "Finale",
+          "songTitle": "Dance With Me Tonight",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 582
+        }
+      ],
+      "itemCount": 41,
+      "danceCount": 37,
+      "trackableCount": 37
+    },
+    {
+      "id": "show-3",
+      "showNumber": 3,
+      "label": "Sunday Noon Show",
+      "day": "Sunday",
+      "date": "2026-05-31",
+      "startTime": "12:00 PM",
+      "title": "Show 3",
+      "items": [
+        {
+          "id": "show-3-01-platinum-sapphire-contemporary",
+          "type": "dance",
+          "position": 1,
+          "order": 1,
+          "title": "Platinum/Sapphire Contemporary",
+          "songTitle": "Sign of the Times",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Addelyn Spalding",
+            "Ava Araujo",
+            "Ava Bednarz",
+            "Avalyn Speth",
+            "Brooklyn Kaberline",
+            "Caitlyn Manning",
+            "Carsen Dennis",
+            "Catherine Dennis",
+            "Channing Kice",
+            "Chloe Bulcock",
+            "Dailyn Ludwig",
+            "Eden Doyle",
+            "Eloise Walker",
+            "Emery Kueser",
+            "Evelyn Lisch",
+            "Evie Richard",
+            "Finley Franz",
+            "Hadley Ouellette",
+            "Harper Osborne",
+            "Isabel Cinalli",
+            "Lacey Harris",
+            "Layla Barry",
+            "Lucy Knutson",
+            "Madelyn Sherwood",
+            "Madisun Morris",
+            "Navy Wittgren",
+            "Nishna Meesa",
+            "Nixon Wittgren",
+            "Oakley Jones",
+            "Olivia Carella",
+            "Paige McCann",
+            "Piper Otto",
+            "Sabina Crocker",
+            "Sidney Cook",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 643
+        },
+        {
+          "id": "show-3-02-slow-me-down",
+          "type": "dance",
+          "position": 2,
+          "order": 2,
+          "title": "Slow Me Down",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Beatrice Wu",
+            "Blakely Waldron",
+            "Finley Nordstrom",
+            "Finley Waddell",
+            "Kenzie Hughes",
+            "Kinsley Kobler",
+            "Lexi Varner",
+            "Myla Pyle"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 649
+        },
+        {
+          "id": "show-3-03-snow-angels",
+          "type": "dance",
+          "position": 3,
+          "order": 3,
+          "title": "Snow Angels",
+          "songTitle": null,
+          "teacher": "Tasha Spalding & Liz Crocker",
+          "teachers": [
+            "Tasha Spalding",
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Annie Scoby",
+            "Britton Wirfel",
+            "Brooklyn Woolery",
+            "Chloe Morris",
+            "Eloise O’Connor",
+            "Evietta Welsh",
+            "Hadley Wassenberg",
+            "Reagan Rojas",
+            "Remy Flynn",
+            "Evelyn Bednarz",
+            "Stella Chen"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 653
+        },
+        {
+          "id": "show-3-04-diamond-combo",
+          "type": "dance",
+          "position": 4,
+          "order": 4,
+          "title": "Diamond Combo",
+          "songTitle": "Thumbs",
+          "teacher": "Katelyn Falconer",
+          "teachers": [
+            "Katelyn Falconer"
+          ],
+          "dancers": [
+            "Ali Hartung",
+            "Aven Hawkins",
+            "Blair Gibbens",
+            "Brooklyn Ginger",
+            "Cora de Leon",
+            "Courtney Conrad",
+            "Ellie Hughes",
+            "Emma Braune",
+            "Grace Miller",
+            "Katelyn Rudisill",
+            "Lola Stunkel",
+            "Myla Pyle",
+            "Nadia Heinzmann",
+            "Reagan Carson"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 657
+        },
+        {
+          "id": "show-3-05-ode-to-a-love-lost",
+          "type": "dance",
+          "position": 5,
+          "order": 5,
+          "title": "Ode to a Love Lost",
+          "songTitle": null,
+          "teacher": "Madeline Mihacevich",
+          "teachers": [
+            "Madeline Mihacevich"
+          ],
+          "dancers": [
+            "Paige McCann"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 661
+        },
+        {
+          "id": "show-3-06-sunday-kind-of-love",
+          "type": "dance",
+          "position": 6,
+          "order": 6,
+          "title": "Sunday Kind of Love",
+          "songTitle": null,
+          "teacher": "Emily Zachary",
+          "teachers": [
+            "Emily Zachary"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Brielle Myers",
+            "Evelyn Lisch",
+            "Evie Richard",
+            "Finley White",
+            "Jillian Wasleski",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 665
+        },
+        {
+          "id": "show-3-07-badder-than-you",
+          "type": "dance",
+          "position": 7,
+          "order": 7,
+          "title": "Badder Than You",
+          "songTitle": null,
+          "teacher": "Katelyn Falconer",
+          "teachers": [
+            "Katelyn Falconer"
+          ],
+          "dancers": [
+            "Vivian Bertrand",
+            "Elena Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 670
+        },
+        {
+          "id": "show-3-08-i-don-t-remember",
+          "type": "dance",
+          "position": 8,
+          "order": 8,
+          "title": "I Don’t Remember",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Aubryn Antonucci",
+            "Blakely Waldron",
+            "Brityn Satterfield",
+            "Char Jones",
+            "Cora Lonergan",
+            "Darcie Chapin",
+            "Kennedy Carver",
+            "Kinsley Kobler",
+            "Layla Barry"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 674
+        },
+        {
+          "id": "show-3-09-no-hard-feelings",
+          "type": "dance",
+          "position": 9,
+          "order": 9,
+          "title": "No Hard Feelings",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Isabel Cinalli"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 680
+        },
+        {
+          "id": "show-3-10-happy-feet",
+          "type": "dance",
+          "position": 10,
+          "order": 10,
+          "title": "Happy Feet",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Britta Nordstrom",
+            "Evelyn Bednarz",
+            "Myla Pyle",
+            "Reagan Carson",
+            "Scarlett Weigel"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 684
+        },
+        {
+          "id": "show-3-11-not-about-you",
+          "type": "dance",
+          "position": 11,
+          "order": 11,
+          "title": "Not About You",
+          "songTitle": null,
+          "teacher": "Derrick Schrader",
+          "teachers": [
+            "Derrick Schrader"
+          ],
+          "dancers": [
+            "Navy Wittgren",
+            "Nixon Wittgren"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 688
+        },
+        {
+          "id": "show-3-12-water-from-the-moon",
+          "type": "dance",
+          "position": 12,
+          "order": 12,
+          "title": "Water From the Moon",
+          "songTitle": null,
+          "teacher": "Keri LaGrand",
+          "teachers": [
+            "Keri LaGrand"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Brooklyn Kaberline",
+            "Channing Kice",
+            "Eloise Walker",
+            "Evie Richard",
+            "Harper Osborne",
+            "Layla Barry",
+            "Lucy Knutson",
+            "Oakley Jones",
+            "Paige McCann",
+            "Piper Otto",
+            "Sabina Crocker",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 696
+        },
+        {
+          "id": "show-3-13-ballet-opal",
+          "type": "dance",
+          "position": 13,
+          "order": 13,
+          "title": "Ballet Opal",
+          "songTitle": "Fairy of the Golden Vine",
+          "teacher": "Marlee Bailey Samani",
+          "teachers": [
+            "Marlee Bailey Samani"
+          ],
+          "dancers": [
+            "Aven Hawkins",
+            "Blair Gibbens",
+            "Blakely Waldron",
+            "Britta Nordstrom",
+            "Brooklyn Ginger",
+            "Claire Robben",
+            "Darcie Chapin",
+            "Eden Schneider",
+            "Emma Braune",
+            "Evietta Welsh",
+            "Finley Waddell",
+            "Grace Miller",
+            "Hadleigh Beck",
+            "Harlow Smalley",
+            "Isla Cook",
+            "Jacey Erwin",
+            "Katelyn Rudisill",
+            "Lexi Suiter",
+            "Lexi Varner",
+            "Maggie Clayton",
+            "Myla Pyle",
+            "Paige Stammer",
+            "Sophia Pasko"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 699
+        },
+        {
+          "id": "show-3-14-like-jennie",
+          "type": "dance",
+          "position": 14,
+          "order": 14,
+          "title": "Like Jennie",
+          "songTitle": null,
+          "teacher": "Katelyn Falconer",
+          "teachers": [
+            "Katelyn Falconer"
+          ],
+          "dancers": [
+            "Avalyn Speth",
+            "Brielle Myers",
+            "Caitlyn Manning",
+            "Capri Pento",
+            "Channing Kice",
+            "Daeleon Brown",
+            "Finley White",
+            "Isabel Cinalli",
+            "Lacey Harris"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 705
+        },
+        {
+          "id": "show-3-15-diamond-tap-monday",
+          "type": "dance",
+          "position": 15,
+          "order": 15,
+          "title": "Diamond Tap (Monday)",
+          "songTitle": "I Can Hear the Bells",
+          "teacher": "Abigail",
+          "teachers": [
+            "Abigail"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Eden Schneider",
+            "Emma Braune",
+            "Hadley Wassenberg",
+            "Kinsley Kobler",
+            "Lexi Varner",
+            "Londyn Froese"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 710
+        },
+        {
+          "id": "show-3-16-death-wish",
+          "type": "dance",
+          "position": 16,
+          "order": 16,
+          "title": "Death Wish",
+          "songTitle": null,
+          "teacher": "Keri LaGrand",
+          "teachers": [
+            "Keri LaGrand"
+          ],
+          "dancers": [
+            "Lucy Knutson"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 714
+        },
+        {
+          "id": "show-3-17-crush-on-you",
+          "type": "dance",
+          "position": 17,
+          "order": 17,
+          "title": "Crush On You",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Blair Nibarger",
+            "Britta Nordstrom",
+            "Caroline Cohn",
+            "Charlotte Watts",
+            "Eliza Elazegui",
+            "Navi Dobbins",
+            "Reagan Carson",
+            "Scarlett Weigel",
+            "Daisy Selman"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 718
+        },
+        {
+          "id": "show-3-18-opal-diamond-contemporary-monday",
+          "type": "dance",
+          "position": 18,
+          "order": 18,
+          "title": "Opal/Diamond Contemporary (Monday)",
+          "songTitle": "House Song",
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Ali Hartung",
+            "Blair Gibbens",
+            "Blakely Williams",
+            "Brooklyn Ginger",
+            "Callan Gibbens",
+            "Cora de Leon",
+            "Ellie Hughes",
+            "Paige Stammer",
+            "Vivian Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 725
+        },
+        {
+          "id": "show-3-19-onyx-combo",
+          "type": "dance",
+          "position": 19,
+          "order": 19,
+          "title": "Onyx Combo",
+          "songTitle": "Who Are You",
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Beatrice Wu",
+            "Blakely Waldron",
+            "Brityn Satterfield",
+            "Cora Lonergan",
+            "Darcie Chapin",
+            "Finley Nordstrom",
+            "Kennedy Carver",
+            "Kinsley Kobler",
+            "Layla Barry",
+            "Navy Wittgren",
+            "Nixon Wittgren"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 729
+        },
+        {
+          "id": "show-3-20-the-chain",
+          "type": "dance",
+          "position": 20,
+          "order": 20,
+          "title": "The Chain",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Ava Bednarz",
+            "Channing Kice",
+            "Eloise Walker",
+            "Evie Richard",
+            "Jillian Wasleski",
+            "Lucy Knutson",
+            "Sabina Crocker",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 738
+        },
+        {
+          "id": "show-3-21-red-ribbon",
+          "type": "dance",
+          "position": 21,
+          "order": 21,
+          "title": "Red Ribbon",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Blakely Williams",
+            "Etta Walker",
+            "Evietta Welsh",
+            "Liliana Baum",
+            "Londyn Froese",
+            "Reagan Rojas",
+            "Remy Flynn"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 743
+        },
+        {
+          "id": "show-3-intermission-747",
+          "type": "intermission",
+          "position": 22,
+          "order": null,
+          "title": "Intermission",
+          "songTitle": null,
+          "teacher": null,
+          "teachers": [],
+          "dancers": [],
+          "programNote": "15-minute intermission",
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 747,
+          "durationMinutes": 15
+        },
+        {
+          "id": "show-3-22-dudes-dance",
+          "type": "featured",
+          "position": 23,
+          "order": 22,
+          "title": "Dudes Dance",
+          "songTitle": "We Will Rock You",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 751
+        },
+        {
+          "id": "show-3-23-thursday",
+          "type": "dance",
+          "position": 24,
+          "order": 23,
+          "title": "Thursday",
+          "songTitle": null,
+          "teacher": "Emily Adair",
+          "teachers": [
+            "Emily Adair"
+          ],
+          "dancers": [
+            "Blair Gibbens",
+            "Emersyn Crary",
+            "Evelynn Elazegui",
+            "Gwen Avant",
+            "Jacey Erwin",
+            "Niara Leslie",
+            "Nyla Najera",
+            "Viktoria Kliukevicius"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 757
+        },
+        {
+          "id": "show-3-24-the-journey",
+          "type": "dance",
+          "position": 25,
+          "order": 24,
+          "title": "The Journey",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Aubryn Antonucci",
+            "Britta Nordstrom",
+            "Claire Robben",
+            "Daisy Selman",
+            "Eden Schneider",
+            "Harlow Smalley",
+            "Kennedy Carver",
+            "Myla Pyle",
+            "Reagan Carson"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 764
+        },
+        {
+          "id": "show-3-25-ballet-topaz-sapphire",
+          "type": "dance",
+          "position": 26,
+          "order": 25,
+          "title": "Ballet Topaz / Sapphire",
+          "songTitle": "Song Compilation",
+          "teacher": "Marlee Bailey Samani",
+          "teachers": [
+            "Marlee Bailey Samani"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Ava Bednarz",
+            "Brielle Myers",
+            "Brityn Satterfield",
+            "Brooklyn Kaberline",
+            "Caitlyn Manning",
+            "Capri Pento",
+            "Catherine Dennis",
+            "Channing Kice",
+            "Dailyn Ludwig",
+            "Eloise Walker",
+            "Emery Kueser",
+            "Evie Nydegger",
+            "Evie Richard",
+            "Finley Franz",
+            "Finley White",
+            "Hadley Ouellette",
+            "Harper Osborne",
+            "Isabel Cinalli",
+            "Jillian Wasleski",
+            "Lacey Harris",
+            "Layla Barry",
+            "Lucy Knutson",
+            "Oakley Jones",
+            "Paige McCann",
+            "Piper Otto",
+            "Sabina Crocker",
+            "Sidney Cook",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 794
+        },
+        {
+          "id": "show-3-26-good-morning",
+          "type": "dance",
+          "position": 27,
+          "order": 26,
+          "title": "Good Morning",
+          "songTitle": null,
+          "teacher": "Abigail Pilecki",
+          "teachers": [
+            "Abigail Pilecki"
+          ],
+          "dancers": [
+            "Cora de Leon",
+            "Emma Braune"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 798
+        },
+        {
+          "id": "show-3-27-change-is-everything",
+          "type": "dance",
+          "position": 28,
+          "order": 27,
+          "title": "Change Is Everything",
+          "songTitle": null,
+          "teacher": "Liz Crocker & Tasha Spalding",
+          "teachers": [
+            "Liz Crocker",
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Ava Araujo",
+            "Braelyn Alexander",
+            "Carsen Dennis",
+            "Claire Wu",
+            "Grace Miller",
+            "Hadleigh Beck",
+            "Isla Cook",
+            "Katelyn Rudisill",
+            "Kayley Morgan",
+            "Lexi Varner",
+            "Nadia Heinzmann",
+            "Niara Leslie",
+            "Olivia Carella",
+            "Sophia Pasko"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 802
+        },
+        {
+          "id": "show-3-28-all-through-the-night",
+          "type": "dance",
+          "position": 29,
+          "order": 28,
+          "title": "All Through The Night",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 806
+        },
+        {
+          "id": "show-3-29-onyx-hip-hop",
+          "type": "dance",
+          "position": 30,
+          "order": 29,
+          "title": "Onyx Hip Hop",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Blakely Waldron",
+            "Brityn Satterfield",
+            "Char Jones",
+            "Cora Lonergan",
+            "Darcie Chapin",
+            "Finley Nordstrom",
+            "Kennedy Carver",
+            "Kinsley Kobler",
+            "Layla Barry",
+            "Navy Wittgren",
+            "Nixon Wittgren"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 810
+        },
+        {
+          "id": "show-3-30-troop-beverly-hills",
+          "type": "dance",
+          "position": 31,
+          "order": 30,
+          "title": "Troop Beverly Hills",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Annie Scoby",
+            "Blakely Williams",
+            "Chloe Morris",
+            "Claire Robben",
+            "Emma Braune",
+            "Hadley Wassenberg",
+            "Myla Pyle",
+            "Reagan Carson",
+            "Reagan Rojas",
+            "Remy Flynn",
+            "Stella Chen"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 814
+        },
+        {
+          "id": "show-3-31-ballad-of-a-thin-man",
+          "type": "dance",
+          "position": 32,
+          "order": 31,
+          "title": "Ballad of a Thin Man",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Ava Bednarz",
+            "Channing Kice",
+            "Eloise Walker",
+            "Evie Richard",
+            "Finley White",
+            "Jillian Wasleski",
+            "Lucy Knutson",
+            "Piper Otto",
+            "Sabina Crocker",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 818
+        },
+        {
+          "id": "show-3-32-schoolin-life",
+          "type": "dance",
+          "position": 33,
+          "order": 32,
+          "title": "Schoolin Life",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Blakely Waldron",
+            "Char Jones",
+            "Dailyn Ludwig",
+            "Darcie Chapin",
+            "Emery Kueser",
+            "Kennedy Carver",
+            "Kinsley Kobler",
+            "Layla Barry"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 825
+        },
+        {
+          "id": "show-3-33-gasp",
+          "type": "dance",
+          "position": 34,
+          "order": 33,
+          "title": "Gasp",
+          "songTitle": null,
+          "teacher": "Sammee Schirmer",
+          "teachers": [
+            "Sammee Schirmer"
+          ],
+          "dancers": [
+            "Brooklyn Kaberline"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 834
+        },
+        {
+          "id": "show-3-34-ballet-diamond",
+          "type": "dance",
+          "position": 35,
+          "order": 34,
+          "title": "Ballet Diamond",
+          "songTitle": "NAME??",
+          "teacher": "Emily Adair",
+          "teachers": [
+            "Emily Adair"
+          ],
+          "dancers": [
+            "Ali Hartung",
+            "Britta Nordstrom",
+            "Brooklyn Ginger",
+            "Callan Gibbens",
+            "Courtney Conrad",
+            "Daisy Selman",
+            "Eloise Oconnor",
+            "Emersyn Crary",
+            "Evelynn Elazegui",
+            "Gwen Avant",
+            "Katelyn Rudisill",
+            "Kennedy Wolfe",
+            "Lila Loschen",
+            "Lola Stunkel",
+            "Myla Pyle",
+            "Nadia Heinzmann",
+            "Niara Leslie",
+            "Nyla Najera",
+            "Viktoria Kliukevicius"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 841
+        },
+        {
+          "id": "show-3-35-diamond-opal-tap",
+          "type": "dance",
+          "position": 36,
+          "order": 35,
+          "title": "Diamond/Opal Tap",
+          "songTitle": "Beat It",
+          "teacher": "Tasha",
+          "teachers": [
+            "Tasha"
+          ],
+          "dancers": [
+            "Char Jones",
+            "Darcie Chapin",
+            "Emma Braune",
+            "Finley Nordstrom",
+            "Jacey Erwin",
+            "Kennedy Carver",
+            "Vivian Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 845
+        },
+        {
+          "id": "show-3-36-no-complaints",
+          "type": "dance",
+          "position": 37,
+          "order": 36,
+          "title": "No Complaints",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Channing Kice"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 849
+        },
+        {
+          "id": "show-3-37-platinum-onyx-tap-thursday",
+          "type": "dance",
+          "position": 38,
+          "order": 37,
+          "title": "Platinum/Onyx Tap (Thursday)",
+          "songTitle": "Spice Up Your Life",
+          "teacher": null,
+          "teachers": [],
+          "dancers": [
+            "Ava Araujo",
+            "Braelyn Alexander",
+            "Emery Kueser",
+            "Reagan Carson",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 853
+        },
+        {
+          "id": "show-3-38-me-against-the-music",
+          "type": "dance",
+          "position": 39,
+          "order": 38,
+          "title": "Me Against the Music",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Daeleon Brown",
+            "Ella Jergens"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 857
+        },
+        {
+          "id": "show-3-39-platinum-sapphire-tap",
+          "type": "dance",
+          "position": 40,
+          "order": 39,
+          "title": "Platinum/Sapphire Tap",
+          "songTitle": "Nice To Each Other",
+          "teacher": "Abigail Pilecki",
+          "teachers": [
+            "Abigail Pilecki"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Ava Bednarz",
+            "Brityn Satterfield",
+            "Brooklyn Kaberline",
+            "Channing Kice",
+            "Elena Bertrand",
+            "Eloise Walker",
+            "Evelyn Lisch",
+            "Evie Richard",
+            "Lacey Harris",
+            "Layla Barry",
+            "Lucy Knutson",
+            "Oakley Jones",
+            "Paige McCann",
+            "Piper Otto",
+            "Rory Wolken",
+            "Sabina Crocker",
+            "Sidney Cook"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 864
+        },
+        {
+          "id": "show-3-40-vogue",
+          "type": "dance",
+          "position": 41,
+          "order": 40,
+          "title": "Vogue",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Ada Colling",
+            "Annie Scoby",
+            "Aubryn Antonucci",
+            "Blakely Waldron",
+            "Chloe Morris",
+            "Ellie Hughes",
+            "Emma Braune",
+            "Evelyn Bednarz",
+            "Evietta Welsh",
+            "Grace Miller",
+            "Hadley Wassenberg",
+            "Londyn Froese",
+            "Myla Pyle",
+            "Reagan Carson",
+            "Reagan Rojas"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 871
+        },
+        {
+          "id": "show-3-41-see-you-again",
+          "type": "dance",
+          "position": 42,
+          "order": 41,
+          "title": "See You Again",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Catherine Dennis",
+            "Claire Knudtson",
+            "Dailyn Ludwig",
+            "Evie Nydegger",
+            "Kenzie Hughes",
+            "Lexi Varner",
+            "Nadia Heinzmann",
+            "Cora Lonergan"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 877
+        },
+        {
+          "id": "show-3-42-finale",
+          "type": "finale",
+          "position": 43,
+          "order": 42,
+          "title": "Finale",
+          "songTitle": "Dance With Me Tonight",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 884
+        }
+      ],
+      "itemCount": 43,
+      "danceCount": 40,
+      "trackableCount": 40
+    },
+    {
+      "id": "show-4",
+      "showNumber": 4,
+      "label": "Sunday 6:00 PM Show",
+      "day": "Sunday",
+      "date": "2026-05-31",
+      "startTime": "6:00 PM",
+      "title": "Show 4",
+      "items": [
+        {
+          "id": "show-4-01-yaya",
+          "type": "dance",
+          "position": 1,
+          "order": 1,
+          "title": "YaYa",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Blair Nibarger",
+            "Blakely Waldron",
+            "Claire Robben",
+            "Daisy Selman",
+            "Darcie Chapin",
+            "Eliza Elazegui",
+            "Finley Nordstrom",
+            "Kennedy Carver",
+            "Layla Barry",
+            "Navi Dobbins",
+            "Navy Wittgren",
+            "Nixon Wittgren",
+            "Harlow Smalley",
+            "Caroline Cohn",
+            "Cora Lonergan"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 952
+        },
+        {
+          "id": "show-4-02-platinum-hip-hop-monday-and-sapphire-hip-hop-monday",
+          "type": "dance",
+          "position": 2,
+          "order": 2,
+          "title": "Platinum Hip Hop (Monday) & Sapphire Hip Hop (Monday)",
+          "songTitle": null,
+          "teacher": "Kalley",
+          "teachers": [
+            "Kalley"
+          ],
+          "dancers": [
+            "Ali Hartung",
+            "Ava Araujo",
+            "Avalyn Speth",
+            "Carsen Dennis",
+            "Dailyn Ludwig",
+            "Emery Kueser",
+            "Finley Franz",
+            "Madelyn Sherwood",
+            "Madisun Morris",
+            "Sidney Cook",
+            "Addelyn Spalding",
+            "Ava Bednarz",
+            "Ayanna Nascimento",
+            "Brooklyn Kaberline",
+            "Caitlyn Manning",
+            "Channing Kice",
+            "Daeleon Brown",
+            "Evie Richard",
+            "Lacey Harris",
+            "Lucy Knutson",
+            "Nishna Meesa",
+            "Oakley Jones",
+            "Paige McCann",
+            "Piper Otto",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 962
+        },
+        {
+          "id": "show-4-03-always-remember-us-this-way",
+          "type": "dance",
+          "position": 3,
+          "order": 3,
+          "title": "Always Remember Us This Way",
+          "songTitle": null,
+          "teacher": "Kalley Jurgielski",
+          "teachers": [
+            "Kalley Jurgielski"
+          ],
+          "dancers": [
+            "Hadley Ouellette"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 966
+        },
+        {
+          "id": "show-4-04-samba",
+          "type": "dance",
+          "position": 4,
+          "order": 4,
+          "title": "Samba",
+          "songTitle": null,
+          "teacher": "Tasha Spalding",
+          "teachers": [
+            "Tasha Spalding"
+          ],
+          "dancers": [
+            "Aven Hawkins",
+            "Blair Gibbens",
+            "Braelyn Alexander",
+            "Chloe Bulcock",
+            "Emersyn Crary",
+            "Hadleigh Beck",
+            "Jacey Erwin",
+            "Kayley Morgan",
+            "Kennedy Wolfe",
+            "Lesley Haase",
+            "Lexi Suiter",
+            "Maggie Clayton",
+            "Niara Leslie",
+            "Nyla Najera",
+            "Rory Wolken",
+            "Sophia Pasko",
+            "Viktoria Kliukevicius"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 970
+        },
+        {
+          "id": "show-4-05-loathing",
+          "type": "dance",
+          "position": 5,
+          "order": 5,
+          "title": "Loathing",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Ava Bednarz",
+            "Brityn Satterfield",
+            "Cora Lonergan",
+            "Darcie Chapin",
+            "Eloise Walker",
+            "Harper Osborne",
+            "Layla Barry",
+            "Sabina Crocker"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 974
+        },
+        {
+          "id": "show-4-06-id-rather-go-blind",
+          "type": "dance",
+          "position": 6,
+          "order": 6,
+          "title": "I'd Rather Go Blind",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Ayanna Nascimento",
+            "Caitlyn Manning",
+            "Catherine Dennis",
+            "Dailyn Ludwig",
+            "Emery Kueser",
+            "Finley Franz",
+            "Finley White",
+            "Lacey Harris",
+            "Madisun Morris"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 979
+        },
+        {
+          "id": "show-4-07-i-never-dreamed-youd-leave-in-summer",
+          "type": "dance",
+          "position": 7,
+          "order": 7,
+          "title": "I Never Dreamed You'd Leave in Summer",
+          "songTitle": null,
+          "teacher": "Keri LaGrand",
+          "teachers": [
+            "Keri LaGrand"
+          ],
+          "dancers": [
+            "Brooklyn Kaberline"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 983
+        },
+        {
+          "id": "show-4-08-opal-tap-monday",
+          "type": "dance",
+          "position": 8,
+          "order": 8,
+          "title": "Opal Tap (Monday)",
+          "songTitle": "Seven Nation Army",
+          "teacher": "Abigail Pilecki",
+          "teachers": [
+            "Abigail Pilecki"
+          ],
+          "dancers": [
+            "Cora de Leon",
+            "Etta Walker",
+            "Evelyn Bednarz",
+            "Finley Nordstrom",
+            "Madelyn Sherwood",
+            "Marnie Rodriguez",
+            "Navy Wittgren",
+            "Niara Leslie",
+            "Nishna Meesa",
+            "Nixon Wittgren",
+            "Scarlett Weigel",
+            "Vivian Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 987
+        },
+        {
+          "id": "show-4-09-mommy-and-me-filler",
+          "type": "filler",
+          "position": 9,
+          "order": 9,
+          "title": "Mommy & Me Filler",
+          "songTitle": null,
+          "teacher": "Jillian Richard",
+          "teachers": [
+            "Jillian Richard"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 991
+        },
+        {
+          "id": "show-4-10-mama-knows-best",
+          "type": "dance",
+          "position": 10,
+          "order": 10,
+          "title": "Mama Knows Best",
+          "songTitle": null,
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Carsen Dennis",
+            "Chloe Bulcock",
+            "Hadleigh Beck",
+            "Jenna Harn",
+            "Katelyn Rudisill",
+            "Lexi Suiter",
+            "Lila Loschen",
+            "Nadia Heinzmann",
+            "Olivia Carella",
+            "Lexi Varner"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 994
+        },
+        {
+          "id": "show-4-11-untamed",
+          "type": "dance",
+          "position": 11,
+          "order": 11,
+          "title": "Untamed",
+          "songTitle": null,
+          "teacher": "Matthew Deloch",
+          "teachers": [
+            "Matthew Deloch"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Ava Bednarz",
+            "Blakely Waldron",
+            "Brityn Satterfield",
+            "Brooklyn Kaberline",
+            "Caitlyn Manning",
+            "Channing Kice",
+            "Char Jones",
+            "Cora Lonergan",
+            "Daisy Selman",
+            "Darcie Chapin",
+            "Eloise Walker",
+            "Evie Richard",
+            "Finley Franz",
+            "Finley Nordstrom",
+            "Finley White",
+            "Hadley Ouellette",
+            "Harlow Smalley",
+            "Harper Osborne",
+            "Isabel Cinalli",
+            "Jillian Wasleski",
+            "Kennedy Carver",
+            "Kinsley Kobler",
+            "Lacey Harris",
+            "Layla Barry",
+            "Lucy Knutson",
+            "Madelyn Sherwood",
+            "Madisun Morris",
+            "Navy Wittgren",
+            "Nishna Meesa",
+            "Nixon Wittgren",
+            "Oakley Jones",
+            "Paige McCann",
+            "Piper Otto",
+            "Sabina Crocker",
+            "Sidney Cook",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 998
+        },
+        {
+          "id": "show-4-12-girls-just-want-to-have-fun",
+          "type": "dance",
+          "position": 12,
+          "order": 12,
+          "title": "Girls Just Want to Have Fun",
+          "songTitle": null,
+          "teacher": "Jillian Richard",
+          "teachers": [
+            "Jillian Richard"
+          ],
+          "dancers": [
+            "Navi Dobbins",
+            "Blair Nibarger"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1002
+        },
+        {
+          "id": "show-4-13-i-lived",
+          "type": "dance",
+          "position": 13,
+          "order": 13,
+          "title": "I Lived",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Jillian Wasleski",
+            "Eloise Walker"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1006
+        },
+        {
+          "id": "show-4-14-platinum-combo-thursday",
+          "type": "dance",
+          "position": 14,
+          "order": 14,
+          "title": "Platinum Combo (Thursday)",
+          "songTitle": "Set Fire to the Rain",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Brielle Myers",
+            "Catherine Dennis",
+            "Elena Bertrand",
+            "Emery Kueser",
+            "Evelyn Lisch",
+            "Evie Nydegger",
+            "Madelyn Sherwood",
+            "Olivia Carella",
+            "Rory Wolken",
+            "Sidney Cook"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1010
+        },
+        {
+          "id": "show-4-15-ballet-onyx-monday-and-tuesday",
+          "type": "dance",
+          "position": 15,
+          "order": 15,
+          "title": "Ballet Onyx (Monday & Tuesday)",
+          "songTitle": "Swan",
+          "teacher": "Marlee Bailey Samani",
+          "teachers": [
+            "Marlee Bailey Samani"
+          ],
+          "dancers": [
+            "Addie Easley",
+            "Ava Araujo",
+            "Beatrice Wu",
+            "Brityn Satterfield",
+            "Char Jones",
+            "Claire Robben",
+            "Cora Lonergan",
+            "Darcie Chapin",
+            "Finley Nordstrom",
+            "Kennedy Carver",
+            "Kenzie Hughes",
+            "Kinsley Kobler",
+            "Layla Barry",
+            "Lexi Varner",
+            "Madisun Morris",
+            "Navy Wittgren",
+            "Nixon Wittgren",
+            "Vivian Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1038
+        },
+        {
+          "id": "show-4-16-no-hard-feelings",
+          "type": "dance",
+          "position": 16,
+          "order": 16,
+          "title": "No Hard Feelings",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Isabel Cinalli"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1042
+        },
+        {
+          "id": "show-4-17-call-me-back",
+          "type": "dance",
+          "position": 17,
+          "order": 17,
+          "title": "Call Me Back",
+          "songTitle": null,
+          "teacher": "Liz Crocker",
+          "teachers": [
+            "Liz Crocker"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Braelyn Alexander",
+            "Brooklyn Ginger",
+            "Carsen Dennis",
+            "Chloe Bulcock",
+            "Katelyn Rudisill",
+            "Maggie Clayton",
+            "Rory Wolken"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1049
+        },
+        {
+          "id": "show-4-18-moulin-rouge",
+          "type": "dance",
+          "position": 18,
+          "order": 18,
+          "title": "Moulin Rouge",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Ava Bednarz",
+            "Brooklyn Kaberline",
+            "Channing Kice",
+            "Eloise Walker",
+            "Evie Richard",
+            "Finley White",
+            "Jillian Wasleski",
+            "Layla Barry",
+            "Lucy Knutson",
+            "Sabina Crocker",
+            "Violet Lewis",
+            "Piper Otto"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1057
+        },
+        {
+          "id": "show-4-intermission-1064",
+          "type": "intermission",
+          "position": 19,
+          "order": null,
+          "title": "Intermission",
+          "songTitle": null,
+          "teacher": null,
+          "teachers": [],
+          "dancers": [],
+          "programNote": "15-minute intermission",
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 1064,
+          "durationMinutes": 15
+        },
+        {
+          "id": "show-4-19-dudes-dance",
+          "type": "featured",
+          "position": 20,
+          "order": 19,
+          "title": "Dudes Dance",
+          "songTitle": "We Will Rock You",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 1070
+        },
+        {
+          "id": "show-4-20-heaven",
+          "type": "dance",
+          "position": 21,
+          "order": 20,
+          "title": "Heaven",
+          "songTitle": null,
+          "teacher": "Keri LaGrand",
+          "teachers": [
+            "Keri LaGrand"
+          ],
+          "dancers": [
+            "Char Jones",
+            "Darcie Chapin",
+            "Finley Nordstrom",
+            "Kennedy Carver",
+            "Layla Barry",
+            "Navy Wittgren",
+            "Nixon Wittgren"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1076
+        },
+        {
+          "id": "show-4-21-bloodbag",
+          "type": "dance",
+          "position": 22,
+          "order": 21,
+          "title": "Bloodbag",
+          "songTitle": null,
+          "teacher": "Madeline",
+          "teachers": [
+            "Madeline"
+          ],
+          "dancers": [
+            "Caitlyn Manning",
+            "Finley Franz",
+            "Hadley Ouellette",
+            "Isabel Cinalli",
+            "Lacey Harris",
+            "Madelyn Sherwood",
+            "Madisun Morris",
+            "Nishna Meesa",
+            "Sidney Cook"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1080
+        },
+        {
+          "id": "show-4-22-bad-thing",
+          "type": "dance",
+          "position": 23,
+          "order": 22,
+          "title": "Bad Thing",
+          "songTitle": null,
+          "teacher": "Christina Grady",
+          "teachers": [
+            "Christina Grady"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Channing Kice",
+            "Evie Richard",
+            "Lucy Knutson",
+            "Paige McCann",
+            "Oakley Jones",
+            "Sabina Crocker"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1089
+        },
+        {
+          "id": "show-4-23-bite-your-tongue",
+          "type": "dance",
+          "position": 24,
+          "order": 23,
+          "title": "Bite Your Tongue",
+          "songTitle": null,
+          "teacher": "Matthew Deloch",
+          "teachers": [
+            "Matthew Deloch"
+          ],
+          "dancers": [
+            "Layla Barry",
+            "Kennedy Carver",
+            "Cora Lonergan"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1093
+        },
+        {
+          "id": "show-4-24-college-dance-team-thursday",
+          "type": "dance",
+          "position": 25,
+          "order": 24,
+          "title": "College Dance Team (Thursday)",
+          "songTitle": "Dangerously in Love",
+          "teacher": "Chasity Tyus",
+          "teachers": [
+            "Chasity Tyus"
+          ],
+          "dancers": [
+            "Adalyn Carney",
+            "Braelyn Alexander",
+            "Brooklyn Kaberline",
+            "Catherine Dennis",
+            "Eloise Walker",
+            "Emery Kueser",
+            "Evelyn Lisch",
+            "Jillian Wasleski",
+            "Madelyn Sherwood",
+            "Oakley Jones",
+            "Rory Wolken",
+            "Sidney Cook",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1097
+        },
+        {
+          "id": "show-4-25-goodbye-yellow-brick-road",
+          "type": "dance",
+          "position": 26,
+          "order": 25,
+          "title": "Goodbye Yellow Brick Road",
+          "songTitle": null,
+          "teacher": "Keri LaGrand",
+          "teachers": [
+            "Keri LaGrand"
+          ],
+          "dancers": [
+            "Channing Kice"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1101
+        },
+        {
+          "id": "show-4-26-gossip",
+          "type": "dance",
+          "position": 27,
+          "order": 26,
+          "title": "Gossip",
+          "songTitle": null,
+          "teacher": "Aaron Czuprenski",
+          "teachers": [
+            "Aaron Czuprenski"
+          ],
+          "dancers": [
+            "Ava Bednarz",
+            "Evie Richard",
+            "Caitlyn Manning",
+            "Lucy Knutson",
+            "Paige McCann",
+            "Piper Otto",
+            "Sabina Crocker"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1105
+        },
+        {
+          "id": "show-4-27-onyx-contemporary-tuesday",
+          "type": "dance",
+          "position": 28,
+          "order": 27,
+          "title": "Onyx Contemporary (Tuesday)",
+          "songTitle": "Something in the Heavens",
+          "teacher": "Abigail Pilecki",
+          "teachers": [
+            "Abigail Pilecki"
+          ],
+          "dancers": [
+            "Addie Easley",
+            "Blakely Waldron",
+            "Char Jones",
+            "Cora Lonergan",
+            "Darcie Chapin",
+            "Finley Nordstrom",
+            "Kennedy Carver",
+            "Kinsley Kobler",
+            "Layla Barry",
+            "Navy Wittgren",
+            "Nixon Wittgren"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1113
+        },
+        {
+          "id": "show-4-28-warrior",
+          "type": "dance",
+          "position": 29,
+          "order": 28,
+          "title": "Warrior",
+          "songTitle": null,
+          "teacher": "Kalley",
+          "teachers": [
+            "Kalley"
+          ],
+          "dancers": [
+            "Ava Araujo",
+            "Aven Hawkins",
+            "Brooklyn Ginger",
+            "Chloe Bulcock",
+            "Cora de Leon",
+            "Elena Bertrand",
+            "Etta Walker",
+            "Jacey Erwin",
+            "Lesley Haase",
+            "Nyla Najera",
+            "Rory Wolken",
+            "Sophia Pasko",
+            "Vivian Bertrand"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1115
+        },
+        {
+          "id": "show-4-29-the-end",
+          "type": "dance",
+          "position": 30,
+          "order": 29,
+          "title": "The End",
+          "songTitle": null,
+          "teacher": "Sammee Schirmer",
+          "teachers": [
+            "Sammee Schirmer"
+          ],
+          "dancers": [
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1119
+        },
+        {
+          "id": "show-4-30-stop-in-nevada",
+          "type": "dance",
+          "position": 31,
+          "order": 30,
+          "title": "Stop in Nevada",
+          "songTitle": null,
+          "teacher": "Kalley",
+          "teachers": [
+            "Kalley"
+          ],
+          "dancers": [
+            "Brielle Myers",
+            "Caitlyn Manning",
+            "Capri Pento",
+            "Finley White",
+            "Isabel Cinalli",
+            "Madelyn Sherwood"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1123
+        },
+        {
+          "id": "show-4-31-die-on-this-hill",
+          "type": "dance",
+          "position": 32,
+          "order": 31,
+          "title": "Die on This Hill",
+          "songTitle": null,
+          "teacher": "Lonni Olson",
+          "teachers": [
+            "Lonni Olson"
+          ],
+          "dancers": [
+            "Brooklyn Kaberline",
+            "Evie Richard",
+            "Lucy Knutson",
+            "Oakley Jones"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1127
+        },
+        {
+          "id": "show-4-32-take-it",
+          "type": "dance",
+          "position": 33,
+          "order": 32,
+          "title": "Take It",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Aubryn Antonucci",
+            "Blakely Waldron",
+            "Claire Robben",
+            "Daisy Selman",
+            "Darcie Chapin",
+            "Eden Schneider",
+            "Harlow Smalley",
+            "Finley Nordstrom"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1131
+        },
+        {
+          "id": "show-4-33-purple-hat",
+          "type": "dance",
+          "position": 34,
+          "order": 33,
+          "title": "Purple Hat",
+          "songTitle": null,
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Addie Easley",
+            "Ayanna Nascimento",
+            "Bella Lentz",
+            "Brielle Myers",
+            "Caitlyn Manning",
+            "Capri Pento",
+            "Claire Knudtson",
+            "Daeleon Brown",
+            "Dailyn Ludwig",
+            "Ella Jergens",
+            "Emery Kueser",
+            "Evelyn Lisch",
+            "Finley Franz",
+            "Finley White",
+            "Isabel Cinalli",
+            "Jillian Wasleski",
+            "Kenzie Hughes",
+            "Lacey Harris",
+            "Layla Barry",
+            "Nishna Meesa",
+            "Piper Otto",
+            "Sabina Crocker",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1138
+        },
+        {
+          "id": "show-4-34-ode-to-a-love-lost",
+          "type": "dance",
+          "position": 35,
+          "order": 34,
+          "title": "Ode to a Love Lost",
+          "songTitle": null,
+          "teacher": "Madeline Mihacevich",
+          "teachers": [
+            "Madeline Mihacevich"
+          ],
+          "dancers": [
+            "Paige McCann"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1142
+        },
+        {
+          "id": "show-4-35-onyx-platinum-sapphire-musical-theater-thursday",
+          "type": "dance",
+          "position": 36,
+          "order": 35,
+          "title": "Onyx/Platinum/Sapphire Musical Theater (Thursday)",
+          "songTitle": "Go To the Movies",
+          "teacher": "Katelyn Falconer",
+          "teachers": [
+            "Katelyn Falconer"
+          ],
+          "dancers": [
+            "Brooklyn Kaberline",
+            "Catherine Dennis",
+            "Char Jones",
+            "Elena Bertrand",
+            "Finley Nordstrom",
+            "Kennedy Carver",
+            "Kinsley Kobler",
+            "Layla Barry",
+            "Rory Wolken",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1146
+        },
+        {
+          "id": "show-4-36-onyx-tap-tuesday-and-thursday",
+          "type": "dance",
+          "position": 37,
+          "order": 36,
+          "title": "Onyx Tap (Tuesday & Thursday)",
+          "songTitle": "Idol",
+          "teacher": "Abigail Pilecki",
+          "teachers": [
+            "Abigail Pilecki"
+          ],
+          "dancers": [
+            "Beatrice",
+            "Blair Gibbens",
+            "Britta Nordstrom",
+            "Caitlyn Manning",
+            "Finley Franz",
+            "Isabel Cinalli",
+            "Jillian Wasleski"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1153
+        },
+        {
+          "id": "show-4-37-canned-heat",
+          "type": "dance",
+          "position": 38,
+          "order": 37,
+          "title": "Canned Heat",
+          "songTitle": null,
+          "teacher": "Jillian Richard & Jessie McElwain",
+          "teachers": [
+            "Jillian Richard",
+            "Jessie McElwain"
+          ],
+          "dancers": [
+            "Addie Easley",
+            "Blakely Waldron",
+            "Brielle Myers",
+            "Capri Pento",
+            "Catherine Dennis",
+            "Claire Knudtson",
+            "Claire Wu",
+            "Dailyn Ludwig",
+            "Darcie Chapin",
+            "Emery Kueser",
+            "Evie Nydegger",
+            "Kenzie Hughes",
+            "Lila Loschen",
+            "Britton Satterfield"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1157
+        },
+        {
+          "id": "show-4-38-sapphire-combo-monday",
+          "type": "dance",
+          "position": 39,
+          "order": 38,
+          "title": "Sapphire Combo (Monday)",
+          "songTitle": "Jealous Type",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [
+            "Addelyn Spalding",
+            "Alexi Tidd",
+            "Ava Bednarz",
+            "Brooklyn Kaberline",
+            "Caitlyn Manning",
+            "Channing Kice",
+            "Eloise Walker",
+            "Evie Richard",
+            "Finley White",
+            "Hadley Ouellette",
+            "Harper Osborne",
+            "Jillian Wasleski",
+            "Lacey Harris",
+            "Lucy Knutson",
+            "Oakley Jones",
+            "Paige McCann",
+            "Piper Otto",
+            "Sabina Crocker",
+            "Violet Lewis"
+          ],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": true,
+          "sourceLine": 1161
+        },
+        {
+          "id": "show-4-39-finale",
+          "type": "finale",
+          "position": 40,
+          "order": 39,
+          "title": "Finale",
+          "songTitle": "Dance With Me Tonight",
+          "teacher": "Jamie Barry",
+          "teachers": [
+            "Jamie Barry"
+          ],
+          "dancers": [],
+          "programNote": null,
+          "stageNote": null,
+          "trackable": false,
+          "sourceLine": 1167
+        }
+      ],
+      "itemCount": 40,
+      "danceCount": 36,
+      "trackableCount": 36
+    }
+  ]
+}

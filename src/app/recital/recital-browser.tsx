@@ -2,429 +2,362 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUp, CalendarDays, CalendarRange, Check, Info, ListOrdered, MapPin, Plus, Search } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  AlertTriangle,
+  ArrowUp,
+  BookOpenText,
+  Check,
+  Info,
+  ListChecks,
+  MapPin,
+  Music2,
+  Plus,
+  Search,
+  UserRound,
+  Users,
+  X,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
-import type { RecitalShow } from "@/lib/recital";
-import type { RecitalScheduleData, RecitalScheduleEvent } from "@/lib/recital-schedule";
+import type { Elev8ProgramData, Elev8ProgramItem, Elev8ProgramShow } from "@/lib/elev8-program";
 
-type StoredSelections = Record<string, number[]>;
-type BrowserMode = "show-order" | "schedule" | "full-rehearsal" | "location";
+type BrowserMode = "my-dances" | "program" | "info";
+type LegacySelections = Record<string, number[]>;
 
-const TRACKER_STORAGE_KEY = "premier-recital-tracker-v1";
+const TRACKER_STORAGE_KEY = "premier-recital-program-tracker-v1";
+const LEGACY_TRACKER_STORAGE_KEY = "premier-recital-tracker-v1";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const TEAMUP_SCHEDULE_DATES = new Set(["2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29"]);
+const QUICK_CHANGE_DANCE_THRESHOLD = 3;
 
-const SHOW_META: Record<number, { day: string; time: string; label: string }> = {
-  1: { day: "Saturday", time: "Noon", label: "Saturday noon" },
-  2: { day: "Saturday, May 30", time: "6:00 PM", label: "Saturday May 30 6pm" },
-  3: { day: "Sunday, May 31", time: "Noon", label: "Sunday May 31 noon" },
-  4: { day: "Sunday, May 31", time: "6:00 PM", label: "Sunday May 31 6pm" },
-};
-
-function getShowMeta(show: RecitalShow) {
-  return (
-    SHOW_META[show.showNumber] ?? {
-      day: `Show ${show.showNumber}`,
-      time: show.sourceMeta,
-      label: show.sourceMeta,
-    }
-  );
+function pluralize(count: number, singular: string, plural = `${singular}s`) {
+  return `${count} ${count === 1 ? singular : plural}`;
 }
 
-const SHOW_GROUPS = [
-  { label: "Saturday", showNumbers: [1, 2] },
-  { label: "Sunday", showNumbers: [3, 4] },
-];
-
-function storageKey(showNumber: number) {
+function showStorageKey(showNumber: number) {
   return String(showNumber);
 }
 
-function normalizeTitle(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/contemporary/g, "contemp")
-    .replace(/\bmt\b/g, "musical theater")
-    .replace(/tuesday/g, "t")
-    .replace(/thursday/g, "th")
-    .replace(/wednesday/g, "w")
-    .replace(/monday/g, "m")
-    .replace(/[’']/g, "")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
+function parseStoredIds(value: string | null) {
+  if (!value) return [];
+
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string") : [];
+  } catch {
+    return [];
+  }
 }
 
-function getRehearsalTitleCore(value: string) {
-  const [titleBeforeTeacher] = value.split(/\s*-\s*/);
-  return normalizeTitle(titleBeforeTeacher ?? value);
+function migrateLegacySelections(value: string | null, shows: Elev8ProgramShow[]) {
+  if (!value) return [];
+
+  try {
+    const parsed = JSON.parse(value) as LegacySelections;
+
+    return shows.flatMap((show) => {
+      const selectedOrders = new Set(parsed[showStorageKey(show.showNumber)] ?? []);
+
+      return show.items
+        .filter((item) => item.type === "dance" && typeof item.order === "number" && selectedOrders.has(item.order))
+        .map((item) => item.id);
+    });
+  } catch {
+    return [];
+  }
 }
 
-const ROUTINE_MATCH_STOP_WORDS = new Set([
-  "and",
-  "class",
-  "costume",
-  "bring",
-  "show",
-  "the",
-  "to",
-  "with",
-]);
+function filterKnownDanceIds(ids: string[], shows: Elev8ProgramShow[]) {
+  const validIds = new Set(
+    shows.flatMap((show) => show.items.filter((item) => item.type === "dance").map((item) => item.id)),
+  );
 
-const WEEKDAY_TOKENS = new Set(["m", "t", "w", "th"]);
-const STYLE_MATCH_TOKENS = new Set([
-  "ballet",
-  "combo",
-  "contemp",
-  "dance",
-  "dude",
-  "dudes",
-  "finale",
-  "hip",
-  "hop",
-  "movement",
-  "musical",
-  "rhinestones",
-  "tap",
-  "team",
-  "tendu",
-  "theater",
-]);
-const LEVEL_MATCH_TOKENS = new Set([
-  "aqua",
-  "college",
-  "diamond",
-  "elementary",
-  "gold",
-  "onyx",
-  "opal",
-  "pearl",
-  "platinum",
-  "rhinestones",
-  "sapphire",
-  "silver",
-  "tiny",
-  "topaz",
-]);
-
-function getMatchTokens(value: string) {
-  return normalizeTitle(value)
-    .split(" ")
-    .filter((token) => token.length > 0 && !ROUTINE_MATCH_STOP_WORDS.has(token));
+  return ids.filter((id) => validIds.has(id));
 }
 
-function getCoreMatchTokens(value: string) {
-  return getMatchTokens(value).filter((token) => !WEEKDAY_TOKENS.has(token));
-}
+function getDayGroups(shows: Elev8ProgramShow[]) {
+  const groups = new Map<string, number[]>();
 
-function getTokenSet(value: string, candidates: Set<string>) {
-  return new Set(getMatchTokens(value).filter((token) => candidates.has(token)));
-}
-
-function countMatchingTokens(source: string[], candidates: Set<string>) {
-  return [...new Set(source)].reduce((total, token) => total + (candidates.has(token) ? 1 : 0), 0);
-}
-
-function setsAreEqual(left: Set<string>, right: Set<string>) {
-  if (left.size !== right.size) return false;
-
-  for (const item of left) {
-    if (!right.has(item)) return false;
+  for (const show of shows) {
+    groups.set(show.day, [...(groups.get(show.day) ?? []), show.showNumber]);
   }
 
-  return true;
+  return [...groups.entries()].map(([label, showNumbers]) => ({ label, showNumbers }));
 }
 
-function setsIntersect(left: Set<string>, right: Set<string>) {
-  for (const item of left) {
-    if (right.has(item)) return true;
+function getTypeLabel(item: Elev8ProgramItem) {
+  switch (item.type) {
+    case "intermission":
+      return "Intermission";
+    case "filler":
+      return "Filler";
+    case "featured":
+      return "Featured";
+    case "finale":
+      return "Finale";
+    case "marker":
+      return "Program";
+    default:
+      return "Dance";
   }
-
-  return false;
 }
 
-function titlesAreKnownAliases(left: string, right: string) {
-  const pair = [left, right].sort().join("|");
-
-  return pair === "dance party bow|show 1 finale";
+function getSearchText(item: Elev8ProgramItem) {
+  return [
+    item.title,
+    item.order?.toString() ?? "",
+    item.type,
+    item.teacher ?? "",
+    item.songTitle ?? "",
+    item.dancers.join(" "),
+  ]
+    .join(" ")
+    .toLowerCase();
 }
 
-function routineTitleMatchesEvent(eventTitle: string, trackedTitle: string) {
-  if (eventTitle === trackedTitle) return true;
-  if (titlesAreKnownAliases(eventTitle, trackedTitle)) return true;
+function getTrackedDanceRows(show: Elev8ProgramShow, selectedIds: Set<string>) {
+  const tracked = show.items.filter((item) => item.type === "dance" && selectedIds.has(item.id));
 
-  const trackedCoreTokens = getCoreMatchTokens(trackedTitle);
-  const eventCoreTokens = getCoreMatchTokens(eventTitle);
+  return tracked.map((item, trackedIndex) => {
+    const itemIndex = show.items.findIndex((candidate) => candidate.id === item.id);
+    const previousTracked = tracked[trackedIndex - 1];
+    const previousTrackedIndex = previousTracked
+      ? show.items.findIndex((candidate) => candidate.id === previousTracked.id)
+      : -1;
+    const itemsBefore = show.items.slice(previousTrackedIndex + 1, itemIndex);
+    const dancesBefore = itemsBefore.filter((candidate) => candidate.type === "dance");
 
-  if (trackedCoreTokens.length < 2 || eventCoreTokens.length < 2) return false;
-
-  const trackedLevels = getTokenSet(trackedTitle, LEVEL_MATCH_TOKENS);
-  const eventLevels = getTokenSet(eventTitle, LEVEL_MATCH_TOKENS);
-
-  if (trackedLevels.size > 0 && eventLevels.size > 0 && !setsAreEqual(trackedLevels, eventLevels)) {
-    return false;
-  }
-
-  const trackedWeekdays = getTokenSet(trackedTitle, WEEKDAY_TOKENS);
-  const eventWeekdays = getTokenSet(eventTitle, WEEKDAY_TOKENS);
-
-  if (trackedWeekdays.size > 0 && eventWeekdays.size > 0 && !setsIntersect(trackedWeekdays, eventWeekdays)) {
-    return false;
-  }
-
-  const trackedSet = new Set(trackedCoreTokens);
-  const eventSet = new Set(eventCoreTokens);
-  const trackedStyles = getTokenSet(trackedTitle, STYLE_MATCH_TOKENS);
-  const eventStyles = getTokenSet(eventTitle, STYLE_MATCH_TOKENS);
-
-  if (trackedStyles.size > 0 && eventStyles.size > 0 && !setsIntersect(trackedStyles, eventStyles)) {
-    return false;
-  }
-
-  if (eventTitle.length > 2 && trackedTitle.length > 2) {
-    if (eventTitle.includes(trackedTitle) || trackedTitle.includes(eventTitle)) return true;
-  }
-
-  const matchingCoreTokenCount = countMatchingTokens(trackedCoreTokens, eventSet);
-  const matchedEnoughOfTrackedTitle =
-    matchingCoreTokenCount >= Math.min(trackedSet.size, 3) ||
-    matchingCoreTokenCount / trackedSet.size >= 0.75;
-  const matchedEnoughOfEventTitle =
-    matchingCoreTokenCount >= Math.min(eventSet.size, 3) ||
-    matchingCoreTokenCount / eventSet.size >= 0.75;
-
-  if (!matchedEnoughOfTrackedTitle && !matchedEnoughOfEventTitle) return false;
-
-  return true;
-}
-
-const SUBCALENDAR_LOCATION_LABELS: Record<number, string> = {
-  14601454: "Studio 1",
-  14601455: "Studio 2",
-  14601465: "Studio 3",
-  14601466: "Studio 4",
-  14601467: "Studio 5",
-  14601468: "Studio 6",
-  14601469: "Studio 7",
-  14601470: "Studio 8",
-};
-
-function eventMatchesTrackedRoutine(event: RecitalScheduleEvent, trackedTitles: string[]) {
-  const eventTitle = getRehearsalTitleCore(event.title);
-
-  return trackedTitles.some((trackedTitle) => {
-    if (trackedTitle.length <= 2) return false;
-
-    return routineTitleMatchesEvent(eventTitle, trackedTitle);
+    return {
+      item,
+      isFirstTrackedDance: trackedIndex === 0,
+      programItemsBefore: itemsBefore.length,
+      dancesBefore: dancesBefore.length,
+      previousTracked,
+      isQuickChange:
+        trackedIndex > 0 && dancesBefore.length <= QUICK_CHANGE_DANCE_THRESHOLD,
+    };
   });
 }
 
-function eventMatchesTrackedShow(event: RecitalScheduleEvent, trackedShowNumbers: number[]) {
-  const eventTitle = event.title.toLowerCase();
-
-  return trackedShowNumbers.some((showNumber) => {
-    if (event.category !== "dress_rehearsal") return false;
-
-    return showNumber <= 2
-      ? eventTitle.includes("show 1 & 2")
-      : eventTitle.includes("show 3 & 4");
-  });
-}
-
-function getEventLocationLabel(event: RecitalScheduleEvent) {
-  if (event.location) return event.location;
-  if (event.title.toLowerCase().includes("b&b")) return "B&B Theaters";
-
-  const studioLabels = event.subcalendarIds
-    .map((id) => SUBCALENDAR_LOCATION_LABELS[id])
-    .filter(Boolean);
-
-  if (studioLabels.length > 0) return `Premier Dance · ${studioLabels.join(", ")}`;
-
-  if (event.category === "rehearsal_or_class" || event.category === "costume_rehearsal") {
-    return "Premier Dance studio";
-  }
-
-  return "Location not listed";
-}
-
-export function RecitalBrowser({
-  shows,
-  schedule,
+function DanceDetailModal({
+  dance,
+  isTracked,
+  onClose,
+  onToggle,
 }: {
-  shows: RecitalShow[];
-  schedule: RecitalScheduleData;
+  dance: Elev8ProgramItem;
+  isTracked: boolean;
+  onClose: () => void;
+  onToggle: () => void;
 }) {
-  const [selectedShow, setSelectedShow] = useState(shows[0]?.showNumber ?? 1);
-  const [query, setQuery] = useState("");
-  const [mode, setMode] = useState<BrowserMode>("show-order");
-  const [selectedByShow, setSelectedByShow] = useState<StoredSelections>({});
-  const [headerHeight, setHeaderHeight] = useState(73);
-  const headerRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") onClose();
+    }
 
-  const currentShow = shows.find((show) => show.showNumber === selectedShow) ?? shows[0];
-  const showKey = currentShow ? storageKey(currentShow.showNumber) : "";
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[70] flex items-end bg-black/70 px-3 pb-3 pt-16 backdrop-blur-sm sm:items-center sm:justify-center sm:p-6"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${dance.title} details`}
+      onClick={onClose}
+    >
+      <div
+        className="max-h-[86dvh] w-full max-w-2xl overflow-y-auto rounded-[8px] border border-white/12 bg-[#101114] shadow-2xl shadow-black/50"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-white/10 bg-[#101114]/95 p-4 backdrop-blur">
+          <div className="min-w-0">
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#8ea4ff]">
+              {dance.order ? `Program #${dance.order}` : "Dance"}
+            </p>
+            <h2 className="mt-1 text-xl font-bold leading-7 text-white">{dance.title}</h2>
+            {dance.songTitle ? <p className="mt-1 text-sm text-white/55">{dance.songTitle}</p> : null}
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close details"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/70 transition hover:bg-white/10 hover:text-white"
+          >
+            <X aria-hidden="true" className="size-5" />
+          </button>
+        </div>
+
+        <div className="grid gap-4 p-4">
+          <section className="grid gap-3 rounded-[6px] border border-white/10 bg-white/[0.03] p-3">
+            <div className="flex items-center gap-3">
+              <UserRound aria-hidden="true" className="size-5 text-[#1C4EFF]" />
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/45">Teacher</p>
+                <p className="mt-0.5 text-sm font-semibold text-white">{dance.teacher ?? "Teacher not listed"}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Users aria-hidden="true" className="size-5 text-[#1C4EFF]" />
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/45">Dancers</p>
+                <p className="mt-0.5 text-sm font-semibold text-white">{pluralize(dance.dancers.length, "dancer")}</p>
+              </div>
+            </div>
+          </section>
+
+          {dance.programNote ? (
+            <section className="rounded-[6px] border border-white/10 bg-white/[0.03] p-3">
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/45">Program Note</p>
+              <p className="mt-1 text-sm leading-6 text-white/75">{dance.programNote}</p>
+            </section>
+          ) : null}
+
+          <section className="rounded-[6px] border border-white/10 bg-white/[0.03] p-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/45">Roster</p>
+            {dance.dancers.length > 0 ? (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {dance.dancers.map((dancer) => (
+                  <span
+                    key={dancer}
+                    className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs font-medium text-white/80"
+                  >
+                    {dancer}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-1 text-sm text-white/60">No dancers listed.</p>
+            )}
+          </section>
+
+          {dance.stageNote ? (
+            <details className="rounded-[6px] border border-white/10 bg-white/[0.03] p-3">
+              <summary className="cursor-pointer text-sm font-semibold text-white/75">Stage note</summary>
+              <p className="mt-2 text-sm leading-6 text-white/60">{dance.stageNote}</p>
+            </details>
+          ) : null}
+
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-pressed={isTracked}
+            className={`flex min-h-12 items-center justify-center gap-2 rounded-[6px] text-sm font-bold transition ${
+              isTracked
+                ? "border border-[#1C4EFF] bg-[#0b1d3d] text-white"
+                : "bg-[#1C4EFF] text-white hover:bg-[#2d5cff]"
+            }`}
+          >
+            {isTracked ? <Check aria-hidden="true" className="size-5" /> : <Plus aria-hidden="true" className="size-5" />}
+            {isTracked ? "Tracked" : "Track Dance"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function RecitalBrowser({ program }: { program: Elev8ProgramData }) {
+  const [selectedShowNumber, setSelectedShowNumber] = useState(program.shows[0]?.showNumber ?? 1);
+  const [mode, setMode] = useState<BrowserMode>("program");
+  const [query, setQuery] = useState("");
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [momHelperEnabled, setMomHelperEnabled] = useState(true);
+  const [activeDance, setActiveDance] = useState<Elev8ProgramItem | null>(null);
+
+  const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+  const currentShow = program.shows.find((show) => show.showNumber === selectedShowNumber) ?? program.shows[0];
+  const dayGroups = useMemo(() => getDayGroups(program.shows), [program.shows]);
+  const selectedDayGroup = dayGroups.find((group) => group.showNumbers.includes(selectedShowNumber)) ?? dayGroups[0];
+  const selectedDayShows =
+    selectedDayGroup?.showNumbers
+      .map((showNumber) => program.shows.find((show) => show.showNumber === showNumber))
+      .filter((show): show is Elev8ProgramShow => Boolean(show)) ?? [];
   const normalizedQuery = query.trim().toLowerCase();
+
+  const filteredProgramItems = useMemo(() => {
+    if (!currentShow) return [];
+    if (!normalizedQuery) return currentShow.items;
+    return currentShow.items.filter((item) => getSearchText(item).includes(normalizedQuery));
+  }, [currentShow, normalizedQuery]);
+
+  const trackedRows = useMemo(() => {
+    if (!currentShow) return [];
+    return getTrackedDanceRows(currentShow, selectedIdSet);
+  }, [currentShow, selectedIdSet]);
+
+  const trackedCountForShow = trackedRows.length;
+  const totalTrackedCount = selectedIds.length;
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      try {
-        const saved = window.localStorage.getItem(TRACKER_STORAGE_KEY);
-        setSelectedByShow(saved ? (JSON.parse(saved) as StoredSelections) : {});
-      } catch {
-        setSelectedByShow({});
+      const savedIds = filterKnownDanceIds(
+        parseStoredIds(window.localStorage.getItem(TRACKER_STORAGE_KEY)),
+        program.shows,
+      );
+
+      if (savedIds.length > 0) {
+        setSelectedIds(savedIds);
+        return;
+      }
+
+      const migratedIds = filterKnownDanceIds(
+        migrateLegacySelections(window.localStorage.getItem(LEGACY_TRACKER_STORAGE_KEY), program.shows),
+        program.shows,
+      );
+      if (migratedIds.length > 0) {
+        setSelectedIds(migratedIds);
+        window.localStorage.setItem(TRACKER_STORAGE_KEY, JSON.stringify(migratedIds));
       }
     }, 0);
 
     return () => window.clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const headerElement = headerRef.current!;
-    if (!headerElement) return;
-
-    function updateHeaderHeight() {
-      setHeaderHeight(Math.ceil(headerElement.getBoundingClientRect().height));
-    }
-
-    updateHeaderHeight();
-
-    const resizeObserver = new ResizeObserver(updateHeaderHeight);
-    resizeObserver.observe(headerElement);
-    window.addEventListener("resize", updateHeaderHeight);
-
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", updateHeaderHeight);
-    };
-  }, []);
-
-
-  const selectedOrders = useMemo(
-    () => [...(selectedByShow[showKey] ?? [])].sort((a, b) => a - b),
-    [selectedByShow, showKey],
-  );
-
-  const selectedOrderSet = useMemo(() => new Set(selectedOrders), [selectedOrders]);
-
-  const filteredItems = useMemo(() => {
-    if (!currentShow) return [];
-    if (!normalizedQuery) return currentShow.items;
-
-    return currentShow.items.filter((item) => {
-      const searchable = [
-        item.title,
-        item.order?.toString() ?? "",
-        item.type,
-        item.instructorOrOwner ?? "",
-      ]
-        .join(" ")
-        .toLowerCase();
-
-      return searchable.includes(normalizedQuery);
-    });
-  }, [currentShow, normalizedQuery]);
-
-  const trackedShowNumbers = useMemo(
-    () =>
-      shows
-        .filter((show) => (selectedByShow[storageKey(show.showNumber)] ?? []).length > 0)
-        .map((show) => show.showNumber),
-    [selectedByShow, shows],
-  );
-
-  const trackedRoutineTitles = useMemo(() => {
-    return shows.flatMap((show) => {
-      const trackedOrders = new Set(selectedByShow[storageKey(show.showNumber)] ?? []);
-
-      return show.items
-        .filter((item) => item.order !== null && trackedOrders.has(item.order))
-        .map((item) => normalizeTitle(item.title));
-    });
-  }, [selectedByShow, shows]);
-
-  const trackedRoutineCount = trackedRoutineTitles.length;
-
-  const filteredScheduleDays = useMemo(() => {
-    return schedule.days
-      .map((day) => ({
-        ...day,
-        events: day.events.filter((event) => {
-          const searchable = [event.title, event.displayDate, event.time, event.location, event.who, event.notes]
-            .join(" ")
-            .toLowerCase();
-          const matchesSearch = !normalizedQuery || searchable.includes(normalizedQuery);
-          const matchesTracked =
-            eventMatchesTrackedRoutine(event, trackedRoutineTitles) ||
-            eventMatchesTrackedShow(event, trackedShowNumbers);
-
-          return matchesSearch && matchesTracked && !event.isPrivate;
-        }),
-      }))
-      .filter((day) => day.events.length > 0);
-  }, [normalizedQuery, schedule.days, trackedRoutineTitles, trackedShowNumbers]);
-
-  const fullRehearsalScheduleDays = useMemo(() => {
-    return schedule.days
-      .filter((day) => TEAMUP_SCHEDULE_DATES.has(day.date))
-      .map((day) => ({
-        ...day,
-        events: day.events.filter((event) => {
-          const searchable = [event.title, event.displayDate, event.time, event.location, event.who, event.notes]
-            .join(" ")
-            .toLowerCase();
-          const matchesSearch = !normalizedQuery || searchable.includes(normalizedQuery);
-
-          return matchesSearch;
-        }),
-      }))
-      .filter((day) => day.events.length > 0);
-  }, [normalizedQuery, schedule.days]);
-
-  const trackedEventCount = filteredScheduleDays.reduce((total, day) => total + day.events.length, 0);
-  const fullRehearsalEventCount = fullRehearsalScheduleDays.reduce((total, day) => total + day.events.length, 0);
-  const modeOptions = [
-    { id: "show-order" as const, label: "Show Order", shortLabel: "Show Order", icon: ListOrdered },
-    { id: "schedule" as const, label: "Rehearsal", shortLabel: "Rehearsal", icon: CalendarDays },
-    { id: "full-rehearsal" as const, label: "TeamUp", shortLabel: "TeamUp", icon: CalendarRange },
-    { id: "location" as const, label: "Location", shortLabel: "Location", icon: MapPin },
-  ];
-  const selectedShowGroup =
-    SHOW_GROUPS.find((group) => group.showNumbers.includes(selectedShow)) ?? SHOW_GROUPS[0];
-  const selectedDayShows = selectedShowGroup.showNumbers
-    .map((showNumber) => shows.find((show) => show.showNumber === showNumber))
-    .filter((show): show is RecitalShow => Boolean(show));
+  }, [program.shows]);
 
   if (!currentShow) return null;
 
-  function toggleRoutine(order: number) {
-    setSelectedByShow((previous) => {
-      const existing = new Set(previous[showKey] ?? []);
+  function persistSelections(nextIds: string[]) {
+    try {
+      window.localStorage.setItem(TRACKER_STORAGE_KEY, JSON.stringify(nextIds));
+    } catch {
+      // Tracking still works for this session if localStorage is unavailable.
+    }
+  }
 
-      if (existing.has(order)) {
-        existing.delete(order);
+  function toggleDance(danceId: string) {
+    setSelectedIds((previous) => {
+      const existing = new Set(previous);
+
+      if (existing.has(danceId)) {
+        existing.delete(danceId);
       } else {
-        existing.add(order);
+        existing.add(danceId);
       }
 
-      const nextSelections = {
-        ...previous,
-        [showKey]: [...existing].sort((a, b) => a - b),
-      };
-
-      try {
-        window.localStorage.setItem(TRACKER_STORAGE_KEY, JSON.stringify(nextSelections));
-      } catch {
-        // Tracking still works for this session if localStorage is unavailable.
-      }
-
-      return nextSelections;
+      const next = program.shows.flatMap((show) =>
+        show.items.filter((item) => item.type === "dance" && existing.has(item.id)).map((item) => item.id),
+      );
+      persistSelections(next);
+      return next;
     });
   }
 
+  function selectShow(showNumber: number) {
+    setSelectedShowNumber(showNumber);
+    setQuery("");
+    setActiveDance(null);
+  }
+
+  const modeOptions = [
+    { id: "my-dances" as const, label: "My Dances", icon: ListChecks },
+    { id: "program" as const, label: "Program", icon: BookOpenText },
+    { id: "info" as const, label: "Info", icon: Info },
+  ];
+
   return (
     <>
-      <header ref={headerRef} className="sticky top-0 z-50 border-b border-white/10 bg-[#07080b] px-3 py-2 sm:px-4">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#07080b] px-3 py-2 sm:px-4">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
           <Link href="/" aria-label="Premier Dance home" className="flex min-w-0 flex-1 items-center gap-3">
             <Image
@@ -436,441 +369,316 @@ export function RecitalBrowser({
               className="h-14 w-auto shrink-0 sm:h-16"
             />
             <div className="min-w-0 border-l border-white/15 pl-3 leading-tight">
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-white">May 30–31, 2026</p>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-white">{program.event.dateRange}</p>
               <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.1em] text-white/55">
-                B&amp;B Theaters
+                {program.event.venue.name}
               </p>
             </div>
           </Link>
-
         </div>
       </header>
 
       <section className="bg-[#07080b] px-3 pb-28 pt-3 sm:px-4 lg:px-8">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto grid max-w-3xl gap-4">
+          {mode !== "info" ? (
+            <div
+              className="grid gap-2 rounded-[8px] border border-white/10 bg-white/5 p-2"
+              role="tablist"
+              aria-label="Select recital show"
+            >
+              <div className="grid grid-cols-2 gap-1 rounded-[6px] bg-black/20 p-1" aria-label="Select recital day">
+                {dayGroups.map((group) => {
+                  const isSelected = group.label === selectedDayGroup?.label;
+                  const firstShowNumber = group.showNumbers[0];
 
-        {mode === "show-order" ? (
-          <>
-        <div
-          className="mx-auto grid max-w-3xl gap-2 rounded-[8px] border border-white/10 bg-white/5 p-2"
-          role="tablist"
-          aria-label="Select recital show"
-        >
-          <div className="grid grid-cols-2 gap-1 rounded-[6px] bg-black/20 p-1" aria-label="Select recital day">
-            {SHOW_GROUPS.map((group) => {
-              const isSelected = group.label === selectedShowGroup.label;
-              const firstShowNumber = group.showNumbers[0];
-
-              return (
-                <button
-                  key={group.label}
-                  type="button"
-                  onClick={() => {
-                    setSelectedShow(firstShowNumber);
-                    setQuery("");
-                  }}
-                  className={`min-h-9 rounded-[5px] text-xs font-bold uppercase tracking-[0.14em] transition ${
-                    isSelected ? "bg-[#1C4EFF] text-white" : "text-white/55 hover:bg-white/10 hover:text-white"
-                  }`}
-                >
-                  {group.label}
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="grid gap-1.5 rounded-[6px] bg-black/20 p-1.5">
-            {selectedDayShows.map((show) => {
-              const isSelected = show.showNumber === currentShow.showNumber;
-              const meta = getShowMeta(show);
-
-              return (
-                <button
-                  key={show.showNumber}
-                  type="button"
-                  role="tab"
-                  aria-selected={isSelected}
-                  onClick={() => {
-                    setSelectedShow(show.showNumber);
-                    setQuery("");
-                  }}
-                  className={`flex min-h-14 items-center justify-between gap-3 rounded-[6px] px-3 py-2 text-left transition ${
-                    isSelected
-                      ? "bg-[#1C4EFF] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.18)]"
-                      : "bg-white/[0.03] text-white hover:bg-white/10"
-                  }`}
-                >
-                  <span className="min-w-0">
-                    <span className="block text-[10px] font-medium uppercase tracking-[0.16em] opacity-70">
-                      Show {show.showNumber}
-                    </span>
-                    <span className="mt-0.5 block text-base font-semibold leading-5">{meta.time}</span>
-                  </span>
-                  <span className="shrink-0 rounded-full border border-white/15 px-2 py-1 text-[11px] font-medium text-white/75">
-                    {show.routineCount} routines
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-5 grid gap-4">
-          <label className="relative block">
-            <span className="sr-only">Search dances</span>
-            <Search
-              aria-hidden="true"
-              className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#5a5a5a] dark:text-white/45"
-            />
-            <Input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search title or number"
-              className="min-h-12 rounded-[4px] border-[#d8d8d8] bg-white pl-10 text-base text-[#080808] placeholder:text-[#5a5a5a] focus-visible:border-[#080808] focus-visible:ring-[#080808]/20 dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/45 dark:focus-visible:border-white dark:focus-visible:ring-white/20"
-            />
-          </label>
-
-          <div className="grid gap-2" aria-live="polite">
-            {filteredItems.length === 0 ? (
-              <div className="border border-[#d8d8d8] p-5 text-sm leading-6 text-[#363636] dark:border-white/10 dark:text-white/70">
-                No dances match this search in Show {currentShow.showNumber}.
-              </div>
-            ) : null}
-
-            {filteredItems.map((item, index) => {
-              const routineOrder = typeof item.order === "number" ? item.order : null;
-              const isSelected = routineOrder !== null && selectedOrderSet.has(routineOrder);
-              const nextTrackedOrder =
-                isSelected && routineOrder !== null
-                  ? selectedOrders.find((order) => order > routineOrder)
-                  : undefined;
-              const quickChangeGap =
-                nextTrackedOrder !== undefined && routineOrder !== null
-                  ? nextTrackedOrder - routineOrder - 1
-                  : null;
-              const nextTrackedRoutine = currentShow.items.find(
-                (routine) => routine.order === nextTrackedOrder,
-              );
-              const showQuickChangeAlert = quickChangeGap !== null && quickChangeGap < 4;
-
-              return (
-                <Fragment key={`${currentShow.showNumber}-${item.order ?? "break"}-${item.title}-${index}`}>
-                <article
-                  key={`${currentShow.showNumber}-${item.order ?? "break"}-${item.title}-${index}`}
-                  role={item.type === "routine" && routineOrder !== null ? "button" : undefined}
-                  tabIndex={item.type === "routine" && routineOrder !== null ? 0 : undefined}
-                  aria-pressed={item.type === "routine" && routineOrder !== null ? isSelected : undefined}
-                  onClick={
-                    item.type === "routine" && routineOrder !== null
-                      ? () => toggleRoutine(routineOrder)
-                      : undefined
-                  }
-                  onKeyDown={
-                    item.type === "routine" && routineOrder !== null
-                      ? (event) => {
-                          if (event.key === "Enter" || event.key === " ") {
-                            event.preventDefault();
-                            toggleRoutine(routineOrder);
-                          }
-                        }
-                      : undefined
-                  }
-                  className={`group rounded-[6px] border p-3 transition ${
-                    item.type === "intermission"
-                      ? "border-[#080808] bg-[#080808] text-white"
-                      : isSelected
-                        ? "cursor-pointer border-[#1C4EFF] bg-[#eff6ff] text-[#080808] dark:border-[#1C4EFF] dark:bg-[#0b1d3d] dark:text-white"
-                        : "cursor-pointer border-[#d8d8d8] bg-white text-[#080808] hover:border-[#1C4EFF] hover:bg-[#f7fbff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C4EFF] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-[#1C4EFF] dark:hover:bg-white/10 dark:focus-visible:outline-[#1C4EFF]"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] text-sm font-medium ${
-                        item.type === "intermission"
-                          ? "border border-white/30 text-white"
-                          : isSelected
-                            ? "border border-[#1C4EFF] bg-[#1C4EFF] text-white"
-                            : "border border-[#d8d8d8] text-[#080808] dark:border-white/15 dark:text-white"
+                  return (
+                    <button
+                      key={group.label}
+                      type="button"
+                      onClick={() => selectShow(firstShowNumber)}
+                      className={`min-h-9 rounded-[5px] text-xs font-bold uppercase tracking-[0.14em] transition ${
+                        isSelected ? "bg-[#1C4EFF] text-white" : "text-white/55 hover:bg-white/10 hover:text-white"
                       }`}
                     >
-                      {item.order ?? "--"}
-                    </div>
+                      {group.label}
+                    </button>
+                  );
+                })}
+              </div>
 
-                    <h3 className="min-w-0 flex-1 text-base font-semibold leading-6">{item.title}</h3>
+              <div className="grid gap-1.5 rounded-[6px] bg-black/20 p-1.5">
+                {selectedDayShows.map((show) => {
+                  const isSelected = show.showNumber === currentShow.showNumber;
 
-                    {item.type === "routine" && routineOrder !== null ? (
-                      <span
-                        aria-hidden="true"
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition ${
-                          isSelected
-                            ? "bg-[#1C4EFF] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.2)]"
-                            : "border border-[#d8d8d8] text-[#1C4EFF] group-hover:border-[#1C4EFF] group-hover:bg-[#1C4EFF] group-hover:text-white dark:border-white/15 dark:text-white/75 dark:group-hover:border-[#1C4EFF] dark:group-hover:bg-[#1C4EFF]"
-                        }`}
-                      >
-                        {isSelected ? <Check className="size-5" /> : <Plus className="size-5" />}
+                  return (
+                    <button
+                      key={show.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={isSelected}
+                      onClick={() => selectShow(show.showNumber)}
+                      className={`flex min-h-14 items-center justify-between gap-3 rounded-[6px] px-3 py-2 text-left transition ${
+                        isSelected
+                          ? "bg-[#1C4EFF] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.18)]"
+                          : "bg-white/[0.03] text-white hover:bg-white/10"
+                      }`}
+                    >
+                      <span className="min-w-0">
+                        <span className="block text-[10px] font-medium uppercase tracking-[0.16em] opacity-70">
+                          Show {show.showNumber}
+                        </span>
+                        <span className="mt-0.5 block text-base font-semibold leading-5">{show.startTime}</span>
                       </span>
-                    ) : null}
-
-                    {item.type === "intermission" ? (
-                      <span className="shrink-0 rounded-[4px] border border-white/30 px-2 py-1 text-[11px] font-medium uppercase tracking-[0.12em]">
-                        Break
+                      <span className="shrink-0 rounded-full border border-white/15 px-2 py-1 text-[11px] font-medium text-white/75">
+                        {show.danceCount} dances
                       </span>
-                    ) : null}
-                  </div>
-                </article>
-                {showQuickChangeAlert ? (
-                  <div className="rounded-[6px] border border-[#f59e0b] bg-[#fff7ed] p-3 text-[#7c2d12] dark:border-[#f59e0b]/60 dark:bg-[#2b1707] dark:text-[#fed7aa]">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#c2410c] dark:text-[#fdba74]">
-                      Quick change alert
-                    </p>
-                    <p className="mt-1 text-sm font-semibold leading-5">
-                      {quickChangeGap === 0
-                        ? "Back-to-back tracked dances."
-                        : `${quickChangeGap} ${quickChangeGap === 1 ? "dance" : "dances"} between tracked dances.`}
-                    </p>
-                    {nextTrackedRoutine ? (
-                      <p className="mt-1 text-xs leading-5 text-[#9a3412] dark:text-[#fed7aa]/80">
-                        Next tracked: #{nextTrackedRoutine.order} {nextTrackedRoutine.title}
-                      </p>
-                    ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
+          {mode === "program" ? (
+            <>
+              <label className="relative block">
+                <span className="sr-only">Search program</span>
+                <Search
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/45"
+                />
+                <Input
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Search title, teacher, or dancer"
+                  className="min-h-12 rounded-[4px] border-white/15 bg-white/5 pl-10 text-base text-white placeholder:text-white/45 focus-visible:border-white focus-visible:ring-white/20"
+                />
+              </label>
+
+              <div className="grid gap-2" aria-live="polite">
+                {filteredProgramItems.length === 0 ? (
+                  <div className="rounded-[6px] border border-white/10 bg-white/5 p-5 text-sm leading-6 text-white/70">
+                    No program items match this search in Show {currentShow.showNumber}.
                   </div>
                 ) : null}
-                </Fragment>
-              );
-            })}
-          </div>
-        </div>
-          </>
-        ) : mode === "schedule" ? (
-          <div className="mt-5 grid gap-4">
-            <div className="rounded-[8px] border border-white/10 bg-white/5 p-3">
-              <div className="flex items-start gap-3">
-                <CalendarDays aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#1C4EFF]" />
-                <div className="min-w-0">
-                  <h2 className="text-base font-semibold text-white">Your Rehearsals</h2>
-                  <p className="mt-1 text-sm leading-5 text-white/60">
-                    Only rehearsals tied to dances you tracked in Show Order, plus the matching dress rehearsal window.
-                  </p>
-                </div>
-              </div>
-            </div>
 
-            <label className="relative block">
-              <span className="sr-only">Search schedule</span>
-              <Search
-                aria-hidden="true"
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/45"
-              />
-              <Input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search schedule"
-                className="min-h-12 rounded-[4px] border-white/15 bg-white/5 pl-10 text-base text-white placeholder:text-white/45 focus-visible:border-white focus-visible:ring-white/20"
-              />
-            </label>
+                {filteredProgramItems.map((item) => {
+                  const isTracked = selectedIdSet.has(item.id);
 
-            {trackedEventCount === 0 ? (
-              <div className="rounded-[6px] border border-white/10 bg-white/5 p-5 text-sm leading-6 text-white/70">
-                {trackedRoutineCount === 0
-                  ? "Track dances in Show Order to build your rehearsal list."
-                  : "No rehearsal items match your tracked dances and search."}
-              </div>
-            ) : null}
+                  if (item.type !== "dance") {
+                    return (
+                      <div
+                        key={item.id}
+                        className="grid grid-cols-[2.5rem_1fr] gap-3 rounded-[6px] border border-white/10 bg-transparent px-2 py-3 text-white/70"
+                      >
+                        <div className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-white/10 text-xs font-bold text-white/45">
+                          {item.order ?? "•"}
+                        </div>
+                        <div className="min-w-0 border-l border-white/10 pl-3">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#8ea4ff]">
+                            {getTypeLabel(item)}
+                          </p>
+                          <p className="mt-1 text-sm font-semibold text-white/78">{item.title}</p>
+                          {item.programNote ? <p className="mt-1 text-xs text-white/45">{item.programNote}</p> : null}
+                        </div>
+                      </div>
+                    );
+                  }
 
-            <div className="grid gap-4" aria-live="polite">
-              {filteredScheduleDays.map((day) => (
-                <section key={day.date} className="grid gap-2">
-                  <h3
-                    className="sticky z-30 -mx-3 border-y border-[#4f74ff] bg-[#1C4EFF] px-3 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_1px_0_rgba(255,255,255,0.18)] sm:-mx-4 sm:px-4"
-                    style={{ top: headerHeight }}
-                  >
-                    {day.displayDate}
-                  </h3>
-                  <div className="grid gap-2">
-                    {day.events.map((event) => {
-                      const matchesTracked =
-                        eventMatchesTrackedRoutine(event, trackedRoutineTitles) ||
-                        eventMatchesTrackedShow(event, trackedShowNumbers);
+                  return (
+                    <article
+                      key={item.id}
+                      className={`rounded-[6px] border transition ${
+                        isTracked
+                          ? "border-[#1C4EFF] bg-[#0b1d3d]"
+                          : "border-white/10 bg-white/5 hover:border-[#1C4EFF] hover:bg-white/8"
+                      }`}
+                    >
+                      <div className="flex items-stretch gap-2 p-2">
+                        <button
+                          type="button"
+                          onClick={() => setActiveDance(item)}
+                          className="flex min-w-0 flex-1 items-center gap-3 rounded-[4px] p-1 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C4EFF]"
+                        >
+                          <span
+                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[4px] text-sm font-bold ${
+                              isTracked
+                                ? "bg-[#1C4EFF] text-white"
+                                : "border border-white/10 bg-black/10 text-white"
+                            }`}
+                          >
+                            {item.order}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-base font-semibold leading-6 text-white">{item.title}</span>
+                            <span className="mt-0.5 block truncate text-xs font-medium text-white/50">
+                              {item.teacher ?? "Teacher not listed"}
+                              {item.songTitle ? ` · ${item.songTitle}` : ""}
+                            </span>
+                          </span>
+                        </button>
 
-                      return (
-                        <article
-                          key={event.id}
-                          className={`rounded-[6px] border p-3 ${
-                            matchesTracked
-                              ? "border-[#1C4EFF] bg-[#0b1d3d]"
-                              : event.isImportant
-                                ? "border-white/15 bg-white/8"
-                                : "border-white/10 bg-white/5"
+                        <button
+                          type="button"
+                          onClick={() => toggleDance(item.id)}
+                          aria-label={`${isTracked ? "Remove" : "Track"} ${item.title}`}
+                          aria-pressed={isTracked}
+                          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition ${
+                            isTracked
+                              ? "bg-[#1C4EFF] text-white"
+                              : "border border-white/15 text-white/75 hover:border-[#1C4EFF] hover:bg-[#1C4EFF] hover:text-white"
                           }`}
                         >
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="min-w-0">
-                              <p className="text-sm font-bold text-white">{event.time}</p>
-                              <h4 className="mt-1 text-base font-semibold leading-6 text-white">{event.title}</h4>
-                              <p className="mt-1 text-sm text-white/60">{getEventLocationLabel(event)}</p>
-                            </div>
-                            <div className="flex shrink-0 flex-col items-end gap-1">
-                              {matchesTracked ? (
-                                <span className="rounded-full bg-[#1C4EFF] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white">
-                                  Tracked
-                                </span>
-                              ) : null}
-                              {event.title.toLowerCase().includes("bring costume") ? (
-                                <span className="rounded-full border border-[#f59e0b]/60 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#fed7aa]">
-                                  Costume
-                                </span>
-                              ) : null}
-                            </div>
-                          </div>
-                        </article>
-                      );
-                    })}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </div>
-        ) : mode === "full-rehearsal" ? (
-          <div className="mt-5 grid gap-4">
-            <div className="rounded-[8px] border border-white/10 bg-white/5 p-3">
-              <div className="flex items-start gap-3">
-                <CalendarRange aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#1C4EFF]" />
+                          {isTracked ? <Check aria-hidden="true" className="size-5" /> : <Plus aria-hidden="true" className="size-5" />}
+                        </button>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </>
+          ) : null}
+
+          {mode === "my-dances" ? (
+            <div className="grid gap-3">
+              <div className="flex items-center justify-between gap-3 rounded-[8px] border border-white/10 bg-white/5 p-3">
                 <div className="min-w-0">
-                  <h2 className="text-base font-semibold text-white">TeamUp Schedule</h2>
-                  <p className="mt-1 text-sm leading-5 text-white/60">
-                    Full TeamUp schedule for May 26-29.
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Tracked</p>
+                  <p className="mt-1 text-lg font-bold leading-6 text-white">
+                    {trackedCountForShow} of {currentShow.danceCount} dances
                   </p>
                 </div>
+                <label className="flex shrink-0 cursor-pointer items-center gap-2 rounded-full border border-white/10 bg-black/15 px-3 py-2 text-xs font-bold text-white/75">
+                  <input
+                    type="checkbox"
+                    checked={momHelperEnabled}
+                    onChange={(event) => setMomHelperEnabled(event.target.checked)}
+                    className="size-4 accent-[#1C4EFF]"
+                  />
+                  Mom Helper
+                </label>
               </div>
-            </div>
 
-            <label className="relative block">
-              <span className="sr-only">Search full rehearsal schedule</span>
-              <Search
-                aria-hidden="true"
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/45"
-              />
-              <Input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search full schedule"
-                className="min-h-12 rounded-[4px] border-white/15 bg-white/5 pl-10 text-base text-white placeholder:text-white/45 focus-visible:border-white focus-visible:ring-white/20"
-              />
-            </label>
-
-            {fullRehearsalEventCount === 0 ? (
-              <div className="rounded-[6px] border border-white/10 bg-white/5 p-5 text-sm leading-6 text-white/70">
-                No TeamUp schedule items match this search.
-              </div>
-            ) : null}
-
-            <div className="grid gap-4" aria-live="polite">
-              {fullRehearsalScheduleDays.map((day) => (
-                <section key={day.date} className="grid gap-2">
-                  <h3
-                    className="sticky z-30 -mx-3 border-y border-[#4f74ff] bg-[#1C4EFF] px-3 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_1px_0_rgba(255,255,255,0.18)] sm:-mx-4 sm:px-4"
-                    style={{ top: headerHeight }}
+              {trackedRows.length === 0 ? (
+                <div className="rounded-[8px] border border-white/10 bg-white/5 p-5">
+                  <Music2 aria-hidden="true" className="size-7 text-[#1C4EFF]" />
+                  <h2 className="mt-3 text-lg font-bold text-white">No tracked dances for this show</h2>
+                  <p className="mt-2 text-sm leading-6 text-white/60">
+                    Open the Program tab and tap the plus next to each dance you want to follow.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setMode("program")}
+                    className="mt-4 flex min-h-11 items-center justify-center rounded-[6px] bg-[#1C4EFF] px-4 text-sm font-bold text-white"
                   >
-                    {day.displayDate}
-                  </h3>
-                  <div className="grid gap-2">
-                    {day.events.map((event) => {
-                      const matchesTracked =
-                        eventMatchesTrackedRoutine(event, trackedRoutineTitles) ||
-                        eventMatchesTrackedShow(event, trackedShowNumbers);
-
-                      return (
-                        <article
-                          key={event.id}
-                          className={`rounded-[6px] border p-3 ${
-                            matchesTracked
-                              ? "border-[#1C4EFF] bg-[#0b1d3d]"
-                              : event.isImportant
-                                ? "border-white/15 bg-white/8"
-                                : "border-white/10 bg-white/5"
-                          }`}
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="min-w-0">
-                              <p className="text-sm font-bold text-white">{event.time}</p>
-                              <h4 className="mt-1 text-base font-semibold leading-6 text-white">{event.title}</h4>
-                              <p className="mt-1 text-sm text-white/60">{getEventLocationLabel(event)}</p>
-                            </div>
-                            <div className="flex shrink-0 flex-col items-end gap-1">
-                              {matchesTracked ? (
-                                <span className="rounded-full bg-[#1C4EFF] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white">
-                                  Tracked
-                                </span>
-                              ) : null}
-                              {event.title.toLowerCase().includes("bring costume") ? (
-                                <span className="rounded-full border border-[#f59e0b]/60 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#fed7aa]">
-                                  Costume
-                                </span>
-                              ) : null}
-                            </div>
+                    Open Program
+                  </button>
+                </div>
+              ) : (
+                <div className="grid gap-2">
+                  {trackedRows.map((row) => (
+                    <article key={row.item.id} className="rounded-[6px] border border-white/10 bg-white/5 p-3">
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[4px] bg-[#1C4EFF] text-sm font-bold text-white">
+                          {row.item.order}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <button
+                            type="button"
+                            onClick={() => setActiveDance(row.item)}
+                            className="block text-left text-base font-semibold leading-6 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C4EFF]"
+                          >
+                            {row.item.title}
+                          </button>
+                          <p className="mt-1 text-xs font-medium text-white/50">
+                            {row.item.teacher ?? "Teacher not listed"}
+                            {row.item.songTitle ? ` · ${row.item.songTitle}` : ""}
+                          </p>
+                          <div className="mt-3 grid gap-1 text-xs leading-5 text-white/62">
+                            <p>
+                              {row.isFirstTrackedDance ? "Before this dance" : "Since previous tracked dance"}:{" "}
+                              <span className="font-semibold text-white/82">
+                                {pluralize(row.programItemsBefore, "program item")}
+                              </span>
+                              {" / "}
+                              <span className="font-semibold text-white/82">
+                                {pluralize(row.dancesBefore, "dance")}
+                              </span>
+                            </p>
+                            {momHelperEnabled && row.isQuickChange ? (
+                              <div className="mt-2 flex items-start gap-2 rounded-[6px] border border-[#f59e0b]/60 bg-[#2b1707] p-2 text-[#fed7aa]">
+                                <AlertTriangle aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
+                                <p>
+                                  Quick change: only {pluralize(row.dancesBefore, "dance")} before this routine.
+                                </p>
+                              </div>
+                            ) : null}
                           </div>
-                        </article>
-                      );
-                    })}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => toggleDance(row.item.id)}
+                          aria-label={`Remove ${row.item.title}`}
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/60 transition hover:bg-white/10 hover:text-white"
+                        >
+                          <X aria-hidden="true" className="size-4" />
+                        </button>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : null}
+
+          {mode === "info" ? (
+            <div className="grid gap-3">
+              <section className="rounded-[8px] border border-white/10 bg-white/5 p-4">
+                <div className="flex items-start gap-3">
+                  <MapPin aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#1C4EFF]" />
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Venue</p>
+                    <h2 className="mt-1 text-2xl font-bold leading-8 text-white">{program.event.venue.name}</h2>
+                    <p className="mt-1 text-sm text-white/60">{program.event.venue.address}</p>
+                    <a
+                      href={program.event.venue.mapsUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 inline-flex min-h-10 items-center justify-center rounded-[6px] bg-white px-4 text-sm font-bold text-[#080808] transition hover:bg-white/90"
+                    >
+                      Open in Maps
+                    </a>
                   </div>
-                </section>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="mt-5 grid gap-4">
-            <div className="rounded-[8px] border border-white/10 bg-white/5 p-4">
-              <div className="flex items-start gap-3">
-                <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-[#1C4EFF]" />
-                <div className="min-w-0">
-                  <h2 className="text-base font-semibold text-white">Location Info</h2>
-                  <p className="mt-1 text-sm leading-5 text-white/60">
-                    Recital weekend and dress rehearsals are listed at B&amp;B Theaters in the studio schedule.
-                  </p>
                 </div>
-              </div>
-            </div>
+              </section>
 
-            <div className="grid gap-3 rounded-[8px] border border-white/10 bg-white/5 p-4">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Venue</p>
-                <h3 className="mt-1 text-2xl font-bold leading-8 text-white">B&amp;B Theaters</h3>
-                <p className="mt-1 text-sm text-white/60">May 30–31, 2026</p>
-                <p className="mt-1 text-sm font-medium text-white/75">16301 Midland Dr, Shawnee, KS 66217</p>
-              </div>
-
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=16301%20Midland%20Dr%2C%20Shawnee%2C%20KS%2066217"
-                target="_blank"
-                rel="noreferrer"
-                className="flex min-h-12 items-center justify-center rounded-[6px] bg-white text-sm font-bold text-[#080808] transition hover:bg-white/90"
-              >
-                Open in Maps
-              </a>
-            </div>
-
-            <div className="grid gap-2 rounded-[8px] border border-white/10 bg-white/5 p-4">
-              <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-3">
+              <section className="grid gap-3 rounded-[8px] border border-white/10 bg-white/5 p-4">
                 <div>
-                  <p className="text-sm font-bold text-white">Dress rehearsal</p>
-                  <p className="mt-1 text-sm text-white/60">Thursday/Friday by show group</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Photography</p>
+                  <p className="mt-1 text-sm leading-6 text-white/75">{program.event.photographyRule}</p>
                 </div>
-                <span className="shrink-0 rounded-full border border-white/15 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">
-                  B&amp;B
-                </span>
-              </div>
-              <div className="flex items-start justify-between gap-3 pt-1">
-                <div>
-                  <p className="text-sm font-bold text-white">Show weekend</p>
-                  <p className="mt-1 text-sm text-white/60">Saturday/Sunday shows at noon and 6 PM</p>
+                <div className="border-t border-white/10 pt-3">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Phones</p>
+                  <p className="mt-1 text-sm leading-6 text-white/75">{program.event.cellPhoneRule}</p>
                 </div>
-                <span className="shrink-0 rounded-full border border-white/15 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">
-                  May 30–31
-                </span>
-              </div>
+                <div className="border-t border-white/10 pt-3">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Intermission</p>
+                  <p className="mt-1 text-sm leading-6 text-white/75">{program.event.intermissionNote}</p>
+                </div>
+              </section>
+
+              <section className="rounded-[8px] border border-white/10 bg-white/5 p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Recital Help</p>
+                <div className="mt-3 grid gap-2">
+                  {program.event.helpNotes.map((note) => (
+                    <p key={note} className="rounded-[6px] border border-white/10 bg-white/[0.03] p-3 text-sm leading-6 text-white/72">
+                      {note}
+                    </p>
+                  ))}
+                </div>
+              </section>
             </div>
-          </div>
-        )}
+          ) : null}
         </div>
       </section>
 
@@ -878,7 +686,7 @@ export function RecitalBrowser({
         aria-label="Recital sections"
         className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-[#07080b]/95 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-2 backdrop-blur"
       >
-        <div className="mx-auto grid max-w-3xl grid-cols-4 gap-1 rounded-[10px] border border-white/10 bg-white/5 p-1 sm:gap-2">
+        <div className="mx-auto grid max-w-3xl grid-cols-3 gap-1 rounded-[10px] border border-white/10 bg-white/5 p-1 sm:gap-2">
           {modeOptions.map((item) => {
             const isSelected = mode === item.id;
             const Icon = item.icon;
@@ -892,13 +700,17 @@ export function RecitalBrowser({
                   setQuery("");
                 }}
                 aria-current={isSelected ? "page" : undefined}
-                className={`flex min-h-14 flex-col items-center justify-center gap-1 rounded-[8px] px-1 text-[11px] font-bold leading-none transition sm:min-h-12 sm:flex-row sm:gap-2 sm:px-3 sm:text-sm ${
+                className={`relative flex min-h-14 flex-col items-center justify-center gap-1 rounded-[8px] px-1 text-[11px] font-bold leading-none transition sm:min-h-12 sm:flex-row sm:gap-2 sm:px-3 sm:text-sm ${
                   isSelected ? "bg-[#1C4EFF] text-white" : "text-white/58 hover:bg-white/10 hover:text-white"
                 }`}
               >
                 <Icon aria-hidden="true" className="size-5 sm:size-4" />
-                <span className="sm:hidden">{item.shortLabel}</span>
-                <span className="hidden sm:inline">{item.label}</span>
+                <span>{item.label}</span>
+                {item.id === "my-dances" && totalTrackedCount > 0 ? (
+                  <span className="absolute right-2 top-1 rounded-full bg-white px-1.5 py-0.5 text-[10px] font-bold text-[#1C4EFF]">
+                    {totalTrackedCount}
+                  </span>
+                ) : null}
               </button>
             );
           })}
@@ -913,6 +725,15 @@ export function RecitalBrowser({
       >
         <ArrowUp aria-hidden="true" className="size-5" />
       </button>
+
+      {activeDance ? (
+        <DanceDetailModal
+          dance={activeDance}
+          isTracked={selectedIdSet.has(activeDance.id)}
+          onClose={() => setActiveDance(null)}
+          onToggle={() => toggleDance(activeDance.id)}
+        />
+      ) : null}
     </>
   );
 }

@@ -1,17 +1,23 @@
 # Premier Recital
 
-Isolated ELEV8 recital tracker app for Premier Dance.
+Isolated ELEV8 recital program app for Premier Dance.
 
 ## Routes
 
 - `/` redirects to `/recital`
-- `/recital` contains the parent-facing tracker
+- `/recital` contains the family-facing program and dance tracker
 
 ## Data sources
 
-- `data/source-links/recital/lovable-recital-2026.json`
-- `data/teamup/recital-week-2026-05-26-to-2026-05-31.json`
-- `research/full-recital-schedule-2026.md`
+- `data/elev8-program.json` is the app source of truth
+- `data/source-links/recital/recital-show-details-2026.json` is the parsed Google Doc source snapshot
+- `data/source-links/recital/lovable-recital-2026.json` is retained historical source data
+
+## Data refresh
+
+```bash
+npm run data:recital-doc
+```
 
 ## Dev
 
