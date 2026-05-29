@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "ELEV8 Recital Tracker",
     short_name: "ELEV8 Recital",
     description: "Track Premier Dance ELEV8 recital routines, rehearsals, rooms, and show order.",
-    start_url: `${basePath}/recital`,
+    start_url: `${basePath}/`,
     scope: `${basePath}/`,
     display: "standalone",
     orientation: "portrait",
